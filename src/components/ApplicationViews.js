@@ -4,12 +4,14 @@ import SessionList from "./SessionList"
 import SessionDetail from "./SessionDetails"
 import SessionManager from "../Modules/SessionManager"
 import SessionForm from "./SessionForm"
+import SessionEditForm from "./SessionEditForm"
 
 class ApplicationViews extends Component {
 
     state = {
         usersSessions: []
     }
+
 
     deleteSession = id => {
         const newState = {}
@@ -260,16 +262,21 @@ class ApplicationViews extends Component {
 
             <React.Fragment >
                 <Route exact path="/session" render={(props) => {
-                    return <SessionList {...props} userSessions={this.state.usersSessions} users={this.state.users} deleteSession={this.deleteSession} />
+                    return <SessionList {...props} userSessions={this.state.usersSessions}  deleteSession={this.deleteSession} />
                 }} />
-                <Route path="/session/:sessionId(\d+)" render={(props) => {
-                    return <SessionDetail {...props} sessions={this.state.usersSessions} users={this.state.users} />
+                <Route exact path="/session/:sessionId(\d+)" render={(props) => {
+                    return <SessionDetail {...props} deleteMessage ={this.deleteMessage} sessions={this.state.usersSessions}  />
                 }} />
-                <Route path="/session/new" render={(props) => {
+                <Route exact path="/session/new" render={(props) => {
                     return <SessionForm {...props}
                         addSession={this.addSession}
                         usersSessions={this.state.usersSessios} />
                 }} />
+                <Route
+                    exact path="/session/:sessionId(\d+)/edit" render={props => {
+                        return <SessionEditForm {...props} sessions={this.state.usersSessions} />
+                    }}
+                />
 
             </React.Fragment >
         )

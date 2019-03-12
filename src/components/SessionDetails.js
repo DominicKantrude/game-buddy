@@ -3,11 +3,51 @@ import "./details.css"
 
 export default class SessionDetail extends Component {
 
+
     state = {
-        messages: []
+        messages: [],
+        message: ""
     }
 
-    //addMessage = message =>{}
+
+    // Update state whenever an input field is edited
+    handleFieldChange = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = evt.target.value;
+        this.setState(stateToChange);
+    };
+
+    /*
+          Local method for validation, creating animal object, and
+          invoking the function reference passed from parent component
+       */
+    constructNewMessage = evt => {
+        evt.preventDefault();
+
+
+        const newMessage = {
+            message: this.state.message,
+            userId: sessionStorage.getItem("credentials"),
+            sessionId: this.props.match.params.sessionId
+        };
+
+        fetch("http://localhost:5002/messages", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newMessage)
+        }).then(() => {
+            const newState = {}
+            fetch(`http://localhost:5002/messages?sessionId=${this.props.match.params.sessionId}&_expand=user`)
+                .then(e => e.json())
+                .then(parsedMessages => {
+                    newState.messages = parsedMessages
+                    this.setState(newState)
+                })
+
+        })
+    }
 
     deleteMessage = id => {
         const newState = {}
@@ -25,8 +65,11 @@ export default class SessionDetail extends Component {
     }
 
     componentDidMount() {
+
         const newState = {}
         const session = this.props.sessions.find(session => session.id === parseInt(this.props.match.params.sessionId)) || {}
+
+
 
         fetch(`http://localhost:5002/messages?sessionId=${session.id}&_expand=user`)
             .then(e => e.json())
@@ -37,13 +80,9 @@ export default class SessionDetail extends Component {
     }
 
     render() {
-        /*
-            Using the route parameter, find the animal that the
-            user clicked on by looking at the `this.props.animals`
-            collection that was passed down from ApplicationViews
-        */
-        const session = this.props.sessions.find(session => session.id === parseInt(this.props.match.params.sessionId)) || {}
 
+        const session = this.props.sessions.find(session => session.id === parseInt(this.props.match.params.sessionId)) || {}
+        console.log(this.props.sessions)
         return (
             <React.Fragment >
                 <section>
@@ -52,6 +91,7 @@ export default class SessionDetail extends Component {
                             <p>Session Date: {session.timeSlot}</p>
                             <p>Group Size: {session.groupSize}</p>
                             {
+
                                 session.users.map(user => {
                                     return <p>User: {user}
                                     </p>
@@ -74,6 +114,15 @@ export default class SessionDetail extends Component {
                                             <div>
                                                 {message.message}
                                             </div>
+                                            <button
+                                            type="button"
+                                            className="btn btn-success"
+                                            onClick={() => {
+                                                this.props.history.push(`/session/${session.id}/edit`);
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
                                             <a href="#"
                                                 onClick={() => this.deleteMessage(message.id)}
                                                 className="card-link">Delete</a>
@@ -95,7 +144,30 @@ export default class SessionDetail extends Component {
 
                     }
                     <div>
-                    {/* <a href="#"
+                        <form className="form">
+                            <div className="users">
+                                <label htmlFor="thing">Message</label>
+                                <textarea
+
+                                    className="form-control"
+                                    id="message"
+                                    placeholder="message"
+                                    onChange={this.handleFieldChange}
+                                    cols={40}
+                                    rows={10} />
+                            </div>
+                            <button
+                                type="submit"
+                                onClick={this.constructNewMessage}
+                                className="btn btn-primary"
+                            >
+                                Submit
+                            </button>
+                        </form>
+
+
+
+                        {/* <a href="#"
                                                 onClick={() => this.addMessage(message.id)}
                                                 className="card-link">Add</a> */}
                     </div>

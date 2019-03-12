@@ -97,6 +97,18 @@
       "userId": 1,
       "message": "i am a message",
       "sessionId": 2
+    },
+    {
+      "message": "",
+      "userId": "2",
+      "sessionId": "2",
+      "id": 3
+    },
+    {
+      "message": "blah blah",
+      "userId": "2",
+      "sessionId": "2",
+      "id": 5
     }
   ]
 }

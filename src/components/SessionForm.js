@@ -30,7 +30,7 @@ export default class SessionForm extends Component {
 
         const session = {
 
-            timeSlot:this.state.sessionDate + " " + this.state.timeSlot,
+            timeSlot: this.state.sessionDate + " " + this.state.timeSlot,
             groupSize: this.state.groupSize,
             users: []
             // Make sure the employeeId is saved to the database as a number since it is a foreign key.
@@ -67,6 +67,16 @@ export default class SessionForm extends Component {
                             id="users"
                             placeholder="users"
                         />
+                    </div>
+                    <div className="users">
+                        <label htmlFor="thing">Message</label>
+                        <textarea
+                            className="form-control"
+                            id="message"
+                            placeholder="message"
+                            onChange={this.handleChange}
+                            cols={40}
+                            rows={10} />
                     </div>
 
                     <div className="form-group">
