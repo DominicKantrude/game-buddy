@@ -1,0 +1,102 @@
+{
+  "sessions": [
+    {
+      "timeSlot": "2019-03-11 23:00-24:00",
+      "groupSize": "2",
+      "users": [],
+      "id": 1
+    },
+    {
+      "timeSlot": "2019-03-27 08:00-09:00",
+      "groupSize": "2",
+      "users": [],
+      "id": 2
+    },
+    {
+      "timeSlot": "2019-03-12 08:00-09:00",
+      "groupSize": "dsd",
+      "users": [],
+      "id": 3
+    },
+    {
+      "timeSlot": "2019-03-12 11:00-09:00",
+      "groupSize": "dsd",
+      "users": [],
+      "id": 4
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "Dominic Kantrude",
+      "password": "password"
+    },
+    {
+      "id": 2,
+      "username": "James Sanchez",
+      "password": "password"
+    },
+    {
+      "id": 3,
+      "username": "Daniel Mendez",
+      "password": "password"
+    },
+    {
+      "id": 4,
+      "username": "Brandon Bort",
+      "password": "password"
+    },
+    {
+      "id": 5,
+      "username": "Willy Metcalf",
+      "password": "password"
+    },
+    {
+      "username": "bob",
+      "password": "bob",
+      "id": 6
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "relatingUserId": 1,
+      "relatedUserId": 2
+    },
+    {
+      "id": 1,
+      "relatingUserId": 1,
+      "relatedUserId": 4
+    }
+  ],
+  "sessionUserRelation": [
+    {
+      "sessionId": 1,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "sessionId": 2,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "sessionId": 3,
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "sessionId": 3,
+      "userId": 2,
+      "id": 5
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "userId": 1,
+      "message": "i am a message",
+      "sessionId": 2
+    }
+  ]
+}
