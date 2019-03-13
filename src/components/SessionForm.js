@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 
-
 export default class SessionForm extends Component {
     // Set initial state
-
-
 
     state = {
         timeSlot: "",
@@ -20,27 +17,19 @@ export default class SessionForm extends Component {
         this.setState(stateToChange);
     };
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
     constructNewSession = evt => {
         evt.preventDefault();
 
-
         const session = {
-
             timeSlot: this.state.sessionDate + " " + this.state.timeSlot,
             groupSize: this.state.groupSize,
             users: []
-            // Make sure the employeeId is saved to the database as a number since it is a foreign key.
         };
 
         // Create the animal and redirect user to animal list
         this.props.addSession(session)
             .then(() => this.props.history.push("/session"));
     }
-
 
     render() {
         return (
@@ -68,21 +57,8 @@ export default class SessionForm extends Component {
                             placeholder="users"
                         />
                     </div>
-                    <div className="users">
-                        <label htmlFor="thing">Message</label>
-                        <textarea
-                            className="form-control"
-                            id="message"
-                            placeholder="message"
-                            onChange={this.handleChange}
-                            cols={40}
-                            rows={10} />
-                    </div>
-
                     <div className="form-group">
                         <label>Date:</label>
-
-
                         <input
                             type="date"
                             required
@@ -91,7 +67,6 @@ export default class SessionForm extends Component {
                             id="sessionDate"
                             placeholder="session date"
                         />
-
                     </div>
                     <div className="form-group">
                         <label htmlFor="timeSlot">Timeslot</label>

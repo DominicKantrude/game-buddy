@@ -22,7 +22,6 @@ class SessionList extends Component {
                 <article>
                     <h1>Session List</h1>
                     {
-
                         this.props.userSessions.map(session =>
 
                             <div key={session.id} class="session">
