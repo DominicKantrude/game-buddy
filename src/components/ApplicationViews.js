@@ -4,14 +4,13 @@ import SessionList from "./SessionList"
 import SessionDetail from "./SessionDetails"
 import SessionManager from "../Modules/SessionManager"
 import SessionForm from "./SessionForm"
-import SessionEditForm from "./SessionEditForm"
 
 class ApplicationViews extends Component {
 
     state = {
-        usersSessions: []
+        usersSessions: [],
+        friends: []
     }
-
 
     deleteSession = id => {
         const newState = {}
@@ -22,8 +21,8 @@ class ApplicationViews extends Component {
 
                 if (parsedShiiz.length > 1) {
                     var found = parsedShiiz.find(function (sessionRelation) {
-                        //will need to add actual user Id here
-                        return sessionRelation.userId === sessionStorage.getItem("credentials");
+
+                        return sessionRelation.userId === parseInt(sessionStorage.getItem("credentials"));
                     });
                     //if more then one are attached. delete the specific user at that user id from the relation table
                     return fetch(`http://localhost:5002/sessionUserRelation/${found.id}`, {
@@ -31,8 +30,7 @@ class ApplicationViews extends Component {
                     })
                 } else {
                     var found = parsedShiiz.find(function (sessionRelation) {
-                        //will need to add actual user Id here
-                        return sessionRelation.userId === sessionStorage.getItem("credentials");
+                        return sessionRelation.userId === parseInt(sessionStorage.getItem("credentials"));
                     });
                     return fetch(`http://localhost:5002/sessionUserRelation/${found.id}`, {
                         method: "DELETE"
@@ -43,7 +41,7 @@ class ApplicationViews extends Component {
                     })
                 }
             })
-            .then(() => fetch(`http://localhost:5002/sessionUserRelation/?userId=${sessionStorage.getItem("credentials")}`)
+            .then(() => fetch(`http://localhost:5002/sessionUserRelation/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
                 .then(r => r.json())
                 .then(sessionUserRelations => {
                     return sessionUserRelations.map(sessionUserRelation => {
@@ -89,19 +87,12 @@ class ApplicationViews extends Component {
             .then(r => r.json())
             .then(sessionThatMayExist => {
 
-
-                //at this point if the session mathces a date time is already exists. this means
-                //we dont want to post the actual session to the database as it is a repeat.
-                //we do however want link that user to the session that is a repeat in our userrealtionship
-                //---if this session does not exist.we want to make a post to the database as well
-                //as create a link in the user relations
-
                 if (Object.keys(sessionThatMayExist).length !== 0) {
 
                     let newSessionRelation = {
                         sessionId: sessionThatMayExist[0].id,
 
-                        userId: sessionStorage.getItem("credentials")
+                        userId: parseInt(sessionStorage.getItem("credentials"))
                     }
                     return fetch("http://localhost:5002/sessionUserRelation", {
                         method: "POST",
@@ -118,7 +109,7 @@ class ApplicationViews extends Component {
                             let newSessionRelation = {
                                 sessionId: addedsession.id,
 
-                                userId: sessionStorage.getItem("credentials")
+                                userId: parseInt(sessionStorage.getItem("credentials"))
                             }
 
                             return fetch("http://localhost:5002/sessionUserRelation", {
@@ -131,7 +122,7 @@ class ApplicationViews extends Component {
                         })
                 }
             })
-            .then(() => fetch(`http://localhost:5002/sessionUserRelation/?userId=${sessionStorage.getItem("credentials")}`)
+            .then(() => fetch(`http://localhost:5002/sessionUserRelation/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
                 .then(r => r.json())
                 .then(sessionUserRelations => {
                     return sessionUserRelations.map(sessionUserRelation => {
@@ -142,7 +133,7 @@ class ApplicationViews extends Component {
                 .then(r => r.json())
                 .then(usersSessions => {
                     newState.usersSessions = usersSessions
-                    console.log(newState)
+
                     let promises = []
                     let fetchArray = []
                     for (let index = 0; index < usersSessions.length; index++) {
@@ -170,8 +161,8 @@ class ApplicationViews extends Component {
             ).then(() => { return "" })
     }
 
-//todo going to have to figure out how to break this promise chain early if we dont get ny results. currently it just decides to
-//grab all sessions if you cant find any .
+    //todo going to have to figure out how to break this promise chain early if we dont get ny results. currently it just decides to
+    //grab all sessions if you cant find any .
 
 
 
@@ -179,14 +170,15 @@ class ApplicationViews extends Component {
     componentDidMount() {
         const newState = {}
 
-        fetch(`http://localhost:5002/sessionUserRelation/?userId=${sessionStorage.getItem("credentials")}`)
+        fetch(`http://localhost:5002/sessionUserRelation/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
             .then(r => r.json())
             .then(sessionUserRelations => {
-                 if(sessionUserRelations.length !== 0){
-                return sessionUserRelations.map(sessionUserRelation => {
-                    return `id=${sessionUserRelation.sessionId}&&`
-                }).join("")}
-                else{
+                if (sessionUserRelations.length !== 0) {
+                    return sessionUserRelations.map(sessionUserRelation => {
+                        return `id=${sessionUserRelation.sessionId}&&`
+                    }).join("")
+                }
+                else {
                     return ""
                 }
             })
@@ -195,7 +187,6 @@ class ApplicationViews extends Component {
             })
             .then(r => r.json())
             .then(usersSessions => {
-                console.log(usersSessions)
                 newState.usersSessions = usersSessions
 
                 let promises = []
@@ -224,15 +215,7 @@ class ApplicationViews extends Component {
                     })
             })
 
-
-
-
-        //now to ge the related users per session
-
-
-
-
-
+        //*******this is fetch stuffs */
 
         // var obj = {
         //     method: 'GET',
@@ -257,27 +240,25 @@ class ApplicationViews extends Component {
     }
 
     render() {
-        console.log(this.props.activeUser)
-        return (
 
+        return (
             <React.Fragment >
                 <Route exact path="/session" render={(props) => {
-                    return <SessionList {...props} userSessions={this.state.usersSessions}  deleteSession={this.deleteSession} />
+                    return <SessionList {...props} userSessions={this.state.usersSessions} deleteSession={this.deleteSession} />
                 }} />
                 <Route exact path="/session/:sessionId(\d+)" render={(props) => {
-                    return <SessionDetail {...props} deleteMessage ={this.deleteMessage} sessions={this.state.usersSessions}  />
+                    return <SessionDetail {...props} deleteMessage={this.deleteMessage} sessions={this.state.usersSessions} />
                 }} />
                 <Route exact path="/session/new" render={(props) => {
                     return <SessionForm {...props}
                         addSession={this.addSession}
                         usersSessions={this.state.usersSessios} />
                 }} />
-                <Route
-                    exact path="/session/:sessionId(\d+)/edit" render={props => {
-                        return <SessionEditForm {...props} sessions={this.state.usersSessions} />
-                    }}
-                />
-
+                  {/* <Route exact path="/friends" render={(props) => {
+                    return <FriendsList {...props}
+                        friends={this.state.friends}
+                        />
+                }} /> */}
             </React.Fragment >
         )
     }

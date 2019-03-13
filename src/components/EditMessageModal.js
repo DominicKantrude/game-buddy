@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-let newFriendShip = {}
-class AddFriendModal extends React.Component {
+class EditMessageModal extends React.Component {
 
     state = {
         modal: false,
+        id: this.props.message.id,
+        userId: this.props.message.userId,
+        message: this.props.message.message,
+        sessionId: this.props.message.sessionId
     }
 
     toggle = () => {
@@ -24,12 +27,19 @@ class AddFriendModal extends React.Component {
     editMessage = evt => {
         evt.preventDefault()
 
-        const editedMessage= {
-            id: this.props.match.params.messageId,
+        const editedMessage = {
+            id: this.state.id,
             message: this.state.message,
-            userId: this.state.breed,
-            employeeId: parseInt(this.state.employeeId)
-          };
+            userId: this.state.userId,
+            sessionId: this.state.sessionId
+        };
+
+        this.setState({ modal: false })
+        this.props.updateMessage(editedMessage)
+
+
+
+
 
         // newFriendShip = {
         //     userId: Number(sessionStorage.getItem("credentials")),
@@ -58,12 +68,24 @@ class AddFriendModal extends React.Component {
         // }
     };
 
+    // componentDidMount() {
+
+    //     this.setState({
+    //         id: this.props.message.id,
+    //         userId: this.props.message.user.userId,
+    //         message: this.props.message.message,
+    //         sessionId: this.props.message.sessionId
+    //     });
+    //     console.log(this.state)
+    // }
+
     render() {
+
         return (
             <div>
                 <Button color="info" onClick={this.toggle}>Edit Message</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Edit Message</ModalHeader>
                     <ModalBody>
                         {/* <select
                             defaultValue=""
@@ -83,7 +105,7 @@ class AddFriendModal extends React.Component {
 
                             className="form-control"
                             id="message"
-                            placeholder="message"
+                            placeholder={this.state.message}
                             onChange={this.handleFieldChange}
                             cols={40}
                             rows={10} />
@@ -103,4 +125,4 @@ class AddFriendModal extends React.Component {
     }
 }
 
-export default AddFriendModal;
+export default EditMessageModal;

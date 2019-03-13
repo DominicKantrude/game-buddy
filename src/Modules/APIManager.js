@@ -24,7 +24,6 @@ export default Object.create(null, {
         }
     },
 
-
     addObject: {
         value: function (object) {
             return fetch(`${remoteURL}/${this.type}`, {

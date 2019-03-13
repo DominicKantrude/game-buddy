@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./details.css"
+import EditMessageModal from "./EditMessageModal"
 
 export default class SessionDetail extends Component {
 
@@ -27,8 +28,8 @@ export default class SessionDetail extends Component {
 
         const newMessage = {
             message: this.state.message,
-            userId: sessionStorage.getItem("credentials"),
-            sessionId: this.props.match.params.sessionId
+            userId: parseInt(sessionStorage.getItem("credentials")),
+            sessionId: parseInt(this.props.match.params.sessionId)
         };
 
         fetch("http://localhost:5002/messages", {
@@ -64,6 +65,25 @@ export default class SessionDetail extends Component {
             })
     }
 
+    updateMessage = editedMessage =>{
+        const newState = {}
+        fetch(`http://localhost:5002/messages/${editedMessage.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedMessage)
+        })
+        .then(() => {
+            fetch(`http://localhost:5002/messages?sessionId=${this.props.match.params.sessionId}&_expand=user`)
+                .then(e => e.json())
+                .then(parsedMessages => {
+                    newState.messages = parsedMessages
+                    this.setState(newState)
+                })
+        })
+    }
+
     componentDidMount() {
 
         const newState = {}
@@ -82,7 +102,7 @@ export default class SessionDetail extends Component {
     render() {
 
         const session = this.props.sessions.find(session => session.id === parseInt(this.props.match.params.sessionId)) || {}
-        console.log(this.props.sessions)
+
         return (
             <React.Fragment >
                 <section>
@@ -105,24 +125,19 @@ export default class SessionDetail extends Component {
                     {
                         this.state.messages.map(message =>
 
-                            <div key={message.id} className={`message ${(message.user.id == sessionStorage.getItem("credentials")) ? "ownMessage" : "otherUserMessage"}`}>
+                            <div key={message.id} className={`message ${(message.user.id == parseInt(sessionStorage.getItem("credentials"))) ? "ownMessage" : "otherUserMessage"}`}>
 
                                 {
-                                    (message.user.id == sessionStorage.getItem("credentials")) ?
+                                    (message.user.id == parseInt(sessionStorage.getItem("credentials"))) ?
                                         (<>
                                             <p>User: Me</p>
                                             <div>
                                                 {message.message}
                                             </div>
-                                            <button
-                                            type="button"
-                                            className="btn btn-success"
-                                            onClick={() => {
-                                                this.props.history.push(`/session/${session.id}/edit`);
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
+                                            <EditMessageModal
+                                                {...this.props} message={message} updateMessage={this.updateMessage}
+
+                                            />
                                             <a href="#"
                                                 onClick={() => this.deleteMessage(message.id)}
                                                 className="card-link">Delete</a>

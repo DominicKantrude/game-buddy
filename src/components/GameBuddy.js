@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import IsAuth from "./Auth/IsAuth"
-//import "bootstrap/dist/css/bootstrap.min.css"
 
 class GameBuddy extends Component {
 
