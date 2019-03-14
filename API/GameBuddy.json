@@ -29,6 +29,30 @@
       "groupSize": "2",
       "users": [],
       "id": 7
+    },
+    {
+      "timeSlot": "2019-03-22 06:00-07:00",
+      "groupSize": "5",
+      "users": [],
+      "id": 8
+    },
+    {
+      "timeSlot": "2019-03-16 06:00-07:00",
+      "groupSize": "3",
+      "users": [],
+      "id": 9
+    },
+    {
+      "timeSlot": "2019-03-25 05:00-06:00",
+      "groupSize": "2",
+      "users": [],
+      "id": 10
+    },
+    {
+      "timeSlot": "2019-03-27 05:00-06:00",
+      "groupSize": "d",
+      "users": [],
+      "id": 11
     }
   ],
   "users": [
@@ -65,43 +89,68 @@
   ],
   "friends": [
     {
-      "id": 1,
-      "relatingUserId": 1,
-      "relatedUserId": 2
+      "id": 3,
+      "relatingUserId": 2,
+      "userId": 1
     },
     {
-      "id": 1,
-      "relatingUserId": 1,
-      "relatedUserId": 4
+      "id": 2,
+      "relatingUserId": 2,
+      "userId": 3
+    },
+    {
+      "relatingUserId": 3,
+      "userId": 1,
+      "id": 5
     }
   ],
   "sessionUserRelation": [
     {
       "sessionId": 1,
-      "userId": 1,
+      "userId": 2,
       "id": 1
     },
     {
-      "sessionId": 3,
+      "sessionId": 1,
       "userId": 1,
       "id": 4
     },
     {
-      "sessionId": 3,
-      "userId": 2,
-      "id": 5
+      "sessionId": 1,
+      "userId": 3,
+      "id": 8
     },
     {
-      "sessionId": 7,
+      "sessionId": 8,
       "userId": 2,
-      "id": 8
+      "id": 9
+    },
+    {
+      "sessionId": 9,
+      "userId": 2,
+      "id": 10
+    },
+    {
+      "sessionId": 9,
+      "userId": 3,
+      "id": 11
+    },
+    {
+      "sessionId": 10,
+      "userId": 3,
+      "id": 12
+    },
+    {
+      "sessionId": 11,
+      "userId": 3,
+      "id": 13
     }
   ],
   "messages": [
     {
-      "message": "xxxxx",
+      "message": "yo dis james and i sent a message a second ago",
       "userId": 2,
-      "sessionId": 7,
+      "sessionId": 9,
       "id": 1
     }
   ]

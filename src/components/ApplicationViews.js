@@ -4,12 +4,39 @@ import SessionList from "./SessionList"
 import SessionDetail from "./SessionDetails"
 import SessionManager from "../Modules/SessionManager"
 import SessionForm from "./SessionForm"
+import FriendsList from "./FriendsList"
+import FriendsAddForm from "./FriendsAddForm"
+
+
+
+// need to update some of the methods to reload info the same way. Really probably should refactor the code because that why its messing
+//up when i change it in one place. Also coming back from friends to sessions doesnt seem to be affecting state properly.
+//once these are taken care of i can decide what stretch goal to pursue. Eiterh API which will prob look the coolest or the scheduler
+
+
+
+
 
 class ApplicationViews extends Component {
 
     state = {
         usersSessions: [],
         friends: []
+    }
+
+    deleteFriend = id => {
+        const newState = {}
+        //do some fetch shit and delete the friends connection. then reload
+        fetch(`http://localhost:5002/friends/${id}`, {
+            method: "DELETE"
+        })
+            .then(() =>
+                fetch(`http://localhost:5002/friends?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+                    .then(r => r.json())
+                    .then(parsedFriends => {
+                        newState.friends = parsedFriends
+                        this.setState(newState)
+                    }))
     }
 
     deleteSession = id => {
@@ -67,18 +94,50 @@ class ApplicationViews extends Component {
                     //todo for somereason our promise chain returns multiple copies. should fix this to give us one so we dont have to target a specific index
                     Promise.all(promises)
                         .then(() => {
+                            fetch(`http://localhost:5002/friends?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+                                .then(r => r.json())
+                                .then(parsedFriends => {
+                                    newState.friends = parsedFriends
+                                    return parsedFriends
+                                })
+                                .then((parsedFriends) => {
+                                    newState.usersSessions.forEach(userSession => {
+                                        fetchArray[0].forEach(sessionRelation => {
 
-                            newState.usersSessions.forEach(userSession => {
-                                fetchArray[0].forEach(sessionRelation => {
-                                    if (userSession.id === sessionRelation.sessionId) {
-                                        userSession.users.push(sessionRelation.user.username)
-                                    }
-                                });
-                            });
-                            this.setState(newState)
+                                            const friendIds = parsedFriends.map(friend => {
+                                                return friend.user.id
+                                            })
+
+                                            //if that user is connected to the session and they are actually friends with the user push them to state
+                                            if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
+                                                userSession.users.push(sessionRelation.user.username)
+                                            }
+                                        });
+                                    });
+                                    this.setState(newState)
+                                })
                         })
                 })
             ).then(() => { return "" })
+    }
+
+    addFriend = friendToAdd => {
+        const newState = {}
+        return fetch("http://localhost:5002/friends", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(friendToAdd)
+        }).then(() => {
+
+            fetch(`http://localhost:5002/friends?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+                .then(r => r.json())
+                .then(parsedFriends => {
+                    newState.friends = parsedFriends
+                    this.setState(newState)
+                })
+        })
     }
 
     addSession = session => {
@@ -148,14 +207,28 @@ class ApplicationViews extends Component {
                     //todo for somereason our promise chain returns multiple copies. should fix this to give us one so we dont have to target a specific index
                     Promise.all(promises)
                         .then(() => {
-                            newState.usersSessions.forEach(userSession => {
-                                fetchArray[0].forEach(sessionRelation => {
-                                    if (userSession.id === sessionRelation.sessionId) {
-                                        userSession.users.push(sessionRelation.user.username)
-                                    }
-                                });
-                            });
-                            this.setState(newState)
+                            fetch(`http://localhost:5002/friends?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+                                .then(r => r.json())
+                                .then(parsedFriends => {
+                                    newState.friends = parsedFriends
+                                    return parsedFriends
+                                })
+                                .then((parsedFriends) => {
+                                    newState.usersSessions.forEach(userSession => {
+                                        fetchArray[0].forEach(sessionRelation => {
+
+                                            const friendIds = parsedFriends.map(friend => {
+                                                return friend.user.id
+                                            })
+
+                                            //if that user is connected to the session and they are actually friends with the user push them to state
+                                            if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
+                                                userSession.users.push(sessionRelation.user.username)
+                                            }
+                                        });
+                                    });
+                                    this.setState(newState)
+                                })
                         })
                 })
             ).then(() => { return "" })
@@ -193,6 +266,8 @@ class ApplicationViews extends Component {
                 let fetchArray = []
                 for (let index = 0; index < usersSessions.length; index++) {
                     const session = usersSessions[index];
+
+                    //the promise brackets may be wrong right after r.json. This may not include the right resolve paramters. Cant check atm
                     promises[index] = Promise.resolve(fetch(`http://localhost:5002/sessionUserRelation/?${session.Id}&_expand=user`)
                         .then(r => r.json()))
                         .then(parsedData => {
@@ -202,16 +277,39 @@ class ApplicationViews extends Component {
                 //todo for somereason our promise chain returns multiple copies. should fix this to give us one so we dont have to target a specific index
                 Promise.all(promises)
                     .then(() => {
+                        fetch(`http://localhost:5002/friends?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+                            .then(r => r.json())
+                            .then(parsedFriends => {
+                                newState.friends = parsedFriends
+                                return parsedFriends
+                            })
+                            .then((parsedFriends) => {
+                                newState.usersSessions.forEach(userSession => {
+                                    fetchArray[0].forEach(sessionRelation => {
 
-                        newState.usersSessions.forEach(userSession => {
-                            fetchArray[0].forEach(sessionRelation => {
-                                if (userSession.id === sessionRelation.sessionId) {
-                                    userSession.users.push(sessionRelation.user.username)
-                                }
-                            });
-                        });
+                                        const friendIds = parsedFriends.map(friend => {
+                                            return friend.user.id
+                                        })
 
-                        this.setState(newState)
+                                        //if that user is connected to the session and they are actually friends with the user push them to state
+                                        if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
+                                            userSession.users.push(sessionRelation.user.username)
+                                        }
+                                    });
+                                });
+                                this.setState(newState)
+                            })
+
+
+
+
+
+
+
+
+
+
+
                     })
             })
 
@@ -254,11 +352,23 @@ class ApplicationViews extends Component {
                         addSession={this.addSession}
                         usersSessions={this.state.usersSessios} />
                 }} />
-                  {/* <Route exact path="/friends" render={(props) => {
+                <Route exact path="/friends" render={props => {
+                    // if (this.isAuthenticated()) {
                     return <FriendsList {...props}
                         friends={this.state.friends}
-                        />
-                }} /> */}
+                        deleteFriend={this.deleteFriend}
+                        addFriend={this.addFriend}
+                    />
+                    // } else {
+                    //     return <Redirect to="/login" />
+                    // }
+                }} />
+                <Route exact path="/friends/new" render={(props) => {
+                    return <FriendsAddForm {...props}
+                        friends={this.state.friends}
+                        addFriend={this.addFriend} />
+                }} />
+
             </React.Fragment >
         )
     }
