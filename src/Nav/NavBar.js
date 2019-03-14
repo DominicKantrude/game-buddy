@@ -11,6 +11,7 @@ class NavBar extends Component {
                 <ul className="nav nav-pills">
                     <li className="nav-item">
                         <Link className="nav-link" to="/session">Sessions</Link>
+                        <Link className="nav-link" to="/friends">Friends</Link>
                     </li>
                 </ul>
             </nav>

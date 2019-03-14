@@ -179,12 +179,6 @@ export default class SessionDetail extends Component {
                                 Submit
                             </button>
                         </form>
-
-
-
-                        {/* <a href="#"
-                                                onClick={() => this.addMessage(message.id)}
-                                                className="card-link">Add</a> */}
                     </div>
 
                 </section>
