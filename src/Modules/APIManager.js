@@ -36,5 +36,24 @@ export default Object.create(null, {
 
         }
 
+    },
+
+    getUserFriends : {
+        value: function(){
+            return fetch(`${remoteURL}/${this.type}?relatingUserId=${parseInt(sessionStorage.getItem("credentials"))}&_expand=user`)
+            .then(r => r.json())
+        }
+    },
+
+    addSessionUserRelation : {
+        value: function(object){
+            return fetch("http://localhost:5002/sessionUserRelation", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(object)
+            })
+        }
     }
 })

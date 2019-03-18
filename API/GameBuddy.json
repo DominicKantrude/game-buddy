@@ -13,46 +13,34 @@
       "id": 3
     },
     {
-      "timeSlot": "2019-03-12 11:00-09:00",
-      "groupSize": "dsd",
+      "timeSlot": "2019-03-22 05:00-06:00",
+      "groupSize": "4",
       "users": [],
       "id": 4
     },
     {
-      "timeSlot": "2019-03-21 10:00-11:00",
-      "groupSize": "fdf",
-      "users": [],
-      "id": 5
-    },
-    {
-      "timeSlot": "2019-06-06 12:00-13:00",
+      "timeSlot": "2019-03-08 01:00-02:00",
       "groupSize": "2",
       "users": [],
       "id": 7
     },
     {
-      "timeSlot": "2019-03-22 06:00-07:00",
-      "groupSize": "5",
+      "timeSlot": "2019-03-16 05:00-06:00",
+      "groupSize": "4",
       "users": [],
       "id": 8
     },
     {
-      "timeSlot": "2019-03-16 06:00-07:00",
-      "groupSize": "3",
+      "timeSlot": "2019-03-02 03:00-04:00",
+      "groupSize": "2",
       "users": [],
       "id": 9
     },
     {
-      "timeSlot": "2019-03-25 05:00-06:00",
-      "groupSize": "2",
+      "timeSlot": "2019-03-20 05:00-06:00",
+      "groupSize": "4",
       "users": [],
       "id": 10
-    },
-    {
-      "timeSlot": "2019-03-27 05:00-06:00",
-      "groupSize": "d",
-      "users": [],
-      "id": 11
     }
   ],
   "users": [
@@ -102,6 +90,16 @@
       "relatingUserId": 3,
       "userId": 1,
       "id": 5
+    },
+    {
+      "relatingUserId": 1,
+      "userId": 6,
+      "id": 6
+    },
+    {
+      "relatingUserId": 6,
+      "userId": 1,
+      "id": 7
     }
   ],
   "sessionUserRelation": [
@@ -116,42 +114,35 @@
       "id": 4
     },
     {
-      "sessionId": 1,
-      "userId": 3,
-      "id": 8
+      "sessionId": 4,
+      "userId": 1,
+      "id": 5
     },
     {
-      "sessionId": 8,
-      "userId": 2,
+      "sessionId": 7,
+      "userId": 6,
       "id": 9
     },
     {
-      "sessionId": 9,
-      "userId": 2,
+      "sessionId": 8,
+      "userId": 6,
       "id": 10
     },
     {
       "sessionId": 9,
-      "userId": 3,
+      "userId": 6,
       "id": 11
     },
     {
-      "sessionId": 10,
-      "userId": 3,
+      "sessionId": 4,
+      "userId": 6,
       "id": 12
     },
     {
-      "sessionId": 11,
-      "userId": 3,
+      "sessionId": 10,
+      "userId": 6,
       "id": 13
     }
   ],
-  "messages": [
-    {
-      "message": "yo dis james and i sent a message a second ago",
-      "userId": 2,
-      "sessionId": 9,
-      "id": 1
-    }
-  ]
+  "messages": []
 }
