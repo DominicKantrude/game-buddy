@@ -7,7 +7,7 @@ import SessionForm from "./SessionForm"
 import FriendsList from "./FriendsList"
 import FriendsAddForm from "./FriendsAddForm"
 import FriendsManager from "../Modules/FriendsManager"
-
+import ScheduleList from "./ScheduleList"
 
 
 // need to update some of the methods to reload info the same way. Really probably should refactor the code because that why its messing
@@ -26,18 +26,24 @@ class ApplicationViews extends Component {
 
     state = {
         usersSessions: [],
-        friends: []
+        friends: [],
+        preferences: []
     }
 
     getSessionAndFriends() {
         const newState = {}
 
 
-        FriendsManager.getUserFriends()
-            .then(parsedFriends => {
-                //add our friends with thier info to our new state
-                newState.friends = parsedFriends
+        fetch(`http://localhost:5002/preferences`)
+            .then(r => r.json())
+            .then(parsedData => {
+                newState.preferences = parsedData;
             })
+            .then(FriendsManager.getUserFriends()
+                .then(parsedFriends => {
+                    //add our friends with thier info to our new state
+                    newState.friends = parsedFriends
+                }))
             .then(() =>
                 fetch(`http://localhost:5002/sessionUserRelation/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
                     .then(r => r.json())
@@ -88,21 +94,31 @@ class ApplicationViews extends Component {
 
                         //for each session we have stored in our new state loop. Go through our array of users connected
                         newState.usersSessions.forEach(userSession => {
+                            let groupSize = 1;
                             fetchArray[0].forEach(sessionRelation => {
                                 //create an array of just user ids to match in our if statement
                                 const friendIds = newState.friends.map(friend => {
                                     return friend.user.id
                                 })
 
-                                //if that user is connected to the session and they are actually friends with the user push them to state
+                                //correct preference to session
+                                if (userSession.id === sessionRelation.sessionId && parseInt(sessionStorage.getItem("credentials")) === sessionRelation.userId) {
+                                    userSession.preference = newState.preferences[sessionRelation.preferenceId-1].preference
+                                }
+
+
+
+                                //if that user is connected to the session and they are actually friends with the user push them to state and add the preference
+                                //of  the game theu want to play
                                 if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
-                                    userSession.users.push(sessionRelation.user.username)
+                                    groupSize++;
+                                    userSession.users.push(sessionRelation.user.username + " Preference: " + newState.preferences[sessionRelation.preferenceId-1].preference)
                                 }
                             });
+                            userSession.groupSize = groupSize;
                         });
                         //push new state which now shows all sessions for that user with all users that are friends that are connected to thier sessions
                         this.setState(newState)
-
                     })
             })
     }
@@ -179,18 +195,18 @@ class ApplicationViews extends Component {
 
 
 
-    addSession = session => {
+    addSession = (session, preference) => {
 
         //check the database for a session time that matches what the user input
         return fetch(`http://localhost:5002/sessions?timeSlot=${session.timeSlot}`)
             .then(r => r.json())
             .then(sessionThatMayExist => {
-
+                console.log(preference)
                 //if the return from the fetch is not empty that session exists which means all we have to do is make a link to the session
                 if (Object.keys(sessionThatMayExist).length !== 0) {
                     let newSessionRelation = {
                         sessionId: sessionThatMayExist[0].id,
-
+                        preferenceId: preference,
                         userId: parseInt(sessionStorage.getItem("credentials"))
                     }
                     return SessionManager.addSessionUserRelation(newSessionRelation)
@@ -201,7 +217,7 @@ class ApplicationViews extends Component {
                         .then((addedsession) => {
                             let newSessionRelation = {
                                 sessionId: addedsession.id,
-
+                                preferenceId: preference,
                                 userId: parseInt(sessionStorage.getItem("credentials"))
                             }
                             return SessionManager.addSessionUserRelation(newSessionRelation)
@@ -258,6 +274,7 @@ class ApplicationViews extends Component {
                 }} />
                 <Route exact path="/session/new" render={(props) => {
                     return <SessionForm {...props}
+                        preferences={this.state.preferences}
                         addSession={this.addSession}
                         usersSessions={this.state.usersSessios} />
                 }} />
@@ -276,6 +293,10 @@ class ApplicationViews extends Component {
                     return <FriendsAddForm {...props}
                         friends={this.state.friends}
                         addFriend={this.addFriend} />
+                }} />
+                 <Route exact path="/schedules" render={(props) => {
+                    return <ScheduleList {...props}
+                        />
                 }} />
 
             </React.Fragment >

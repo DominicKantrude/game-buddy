@@ -26,7 +26,9 @@ class SessionList extends Component {
 
                             <div key={session.id} class="session">
                                 <p>Session Date: {session.timeSlot}</p>
+                                <p>Preference: {session.preference}</p>
                                 <p>Group Size: {session.groupSize}</p>
+
 
                                 {
                                     session.users.map(user => {
