@@ -5,7 +5,8 @@ export default class Login extends Component {
   // Set initial state
   state = {
     password: "",
-    username: ""
+    username: "",
+    lolTag: ""
   }
 
   // Update state whenever an input field is edited
@@ -19,7 +20,8 @@ export default class Login extends Component {
     e.preventDefault()
     const newUser = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      lolTag: this.state.lolTag
     }
     if (this.state.username && this.state.password) {
       UserManager.searchUsername(this.state.username).then(users => {
@@ -74,6 +76,14 @@ export default class Login extends Component {
           type="password"
           id="password"
           placeholder={` Password`}
+          required=""
+        />
+        <label htmlFor="inputLolTag">League tag</label>
+        <input
+          onChange={this.handleFieldChange}
+          type="lolTag"
+          id="lolTag"
+          placeholder={` League of Legends Tag`}
           required=""
         />
         <button type="submit" onClick={this.handleLogin}>

@@ -7,7 +7,9 @@ export default class SessionForm extends Component {
         timeSlot: "",
         groupSize: "",
         sessionDate: "",
-        users: []
+        users: [],
+        preference: ""
+
     };
 
     // Update state whenever an input field is edited
@@ -25,9 +27,9 @@ export default class SessionForm extends Component {
             groupSize: this.state.groupSize,
             users: []
         };
-
+        const preference = parseInt(this.state.preference);
         // Create the animal and redirect user to animal list
-        this.props.addSession(session)
+        this.props.addSession(session, preference)
             .then(() => this.props.history.push("/session"));
     }
 
@@ -36,27 +38,23 @@ export default class SessionForm extends Component {
             <React.Fragment>
                 <form className="animalForm">
                     <div className="form-group">
-                        <label htmlFor="groupSize">Group Size</label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
+                        <label htmlFor="timeSlot">Preference</label>
+                        <select
+                            defaultValue=""
+                            name="preference"
+                            id="preference"
                             onChange={this.handleFieldChange}
-                            id="groupSize"
-                            placeholder="group size"
-                        />
+                        >
+                            {
+
+                                this.props.preferences.map(preference => {
+                                    return <option key={preference.id} id={preference.id} value={preference.id}>{preference.preference}</option>
+                                }
+                                )
+                            }
+                        </select>
                     </div>
-                    <div className="users">
-                        <label htmlFor="breed">Users</label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.handleFieldChange}
-                            id="users"
-                            placeholder="users"
-                        />
-                    </div>
+
                     <div className="form-group">
                         <label>Date:</label>
                         <input
