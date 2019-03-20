@@ -18,19 +18,17 @@ import ScheduleList from "./ScheduleList"
 //http://localhost:3003/users?_embed=animals
 //so what this does is get all animals with users conneceted?
 
-
-
-
-
 class ApplicationViews extends Component {
 
     state = {
         usersSessions: [],
         friends: [],
-        preferences: []
+        preferences: [],
+        schedules: [],
+        initialLoad: false
     }
 
-    getSessionAndFriends() {
+    getLoadInfo() {
         const newState = {}
 
 
@@ -39,6 +37,11 @@ class ApplicationViews extends Component {
             .then(parsedData => {
                 newState.preferences = parsedData;
             })
+            .then(fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
+                .then(r => r.json())
+                .then(parsedSchedules => {
+                    newState.schedules = parsedSchedules;
+                }))
             .then(FriendsManager.getUserFriends()
                 .then(parsedFriends => {
                     //add our friends with thier info to our new state
@@ -103,16 +106,14 @@ class ApplicationViews extends Component {
 
                                 //correct preference to session
                                 if (userSession.id === sessionRelation.sessionId && parseInt(sessionStorage.getItem("credentials")) === sessionRelation.userId) {
-                                    userSession.preference = newState.preferences[sessionRelation.preferenceId-1].preference
+                                    userSession.preference = newState.preferences[sessionRelation.preferenceId - 1].preference
                                 }
-
-
 
                                 //if that user is connected to the session and they are actually friends with the user push them to state and add the preference
                                 //of  the game theu want to play
                                 if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
                                     groupSize++;
-                                    userSession.users.push(sessionRelation.user.username + " Preference: " + newState.preferences[sessionRelation.preferenceId-1].preference)
+                                    userSession.users.push(sessionRelation.user.username + " Preference: " + newState.preferences[sessionRelation.preferenceId - 1].preference)
                                 }
                             });
                             userSession.groupSize = groupSize;
@@ -122,7 +123,6 @@ class ApplicationViews extends Component {
                     })
             })
     }
-
 
     deleteFriend = id => {
         const newState = {}
@@ -190,11 +190,6 @@ class ApplicationViews extends Component {
         })
     }
 
-
-
-
-
-
     addSession = (session, preference) => {
 
         //check the database for a session time that matches what the user input
@@ -224,19 +219,84 @@ class ApplicationViews extends Component {
                         })
                 }
             })
-            .then(() => this.getSessionAndFriends())
+            .then(() => this.getLoadInfo())
     }
 
     //todo going to have to figure out how to break this promise chain early if we dont get ny results. currently it just decides to
     //grab all sessions if you cant find any .
+    addScheduledSession() {
+        if (this.state.initialLoad === false) {
+            fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
+                .then(r => r.json())
+                .then(parsedSchedules => {
+                    this.state.initialLoad = true;
+                    console.log("i ran")
+                    var currentDate = new Date();
+                    var day = currentDate.getDay()
+                    console.log({ currentDate })
+                    console.log({ day })
+                    let nearestSunday = this.minusDays(currentDate, day)
+                    //we need to pull all schedules for the usersid
+
+                    parsedSchedules.forEach(schedule => {
+                        let firstPassthrough = true;
+                        let sessionDateToAdd = 0;
+
+                        if (firstPassthrough) {
+                            firstPassthrough = false;
+                            //add schedule day amount
+                            sessionDateToAdd = this.addDays(nearestSunday, schedule.dayIncrementor)
+                            console.log(sessionDateToAdd)
+                        } else {
+                            sessionDateToAdd += 7
+                        }
+                        let year = sessionDateToAdd.getFullYear();
+                        let month = sessionDateToAdd.getMonth();
+                        let day = sessionDateToAdd.getDate();
+                        let session =
+                        {
+                            timeSlot: `${year}/${month}/${day}  ${schedule.time}`,
+                            groupSize: "",
+                            users: [],
+                        }
+                        console.log(session)
+                        this.addSession(session, 1)
+                    });
+
+                    //console.log(this.addDays(currentDate, //this will be from our scheduler))
+
+                    //0 is sunday
+                    //we subtract the day number from our month to set us to the nearest sunday.
 
 
 
 
+                })
 
+            //we then grab the last day of the month so we
+            //now when to increment the next month. we then add the day converted to number to our startSunday and check if that passes
+            //the threshhold. if i does subrtact the threshold increment the month and add the day as a reminder. add the time as well.
+            //loop through this 4 times add these to an array. For each in the array send that argument to our add session with it formated
+            //properly to be added to the database.
+        }
+    }
+
+    minusDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() - days);
+        return result;
+    }
+
+    addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
 
     componentDidMount() {
-        this.getSessionAndFriends()
+        this.getLoadInfo()
+        this.addScheduledSession()
+
     }
     //*******this is fetch stuffs */
 
@@ -263,7 +323,7 @@ class ApplicationViews extends Component {
 
 
     render() {
-
+        console.log(this.state)
         return (
             <React.Fragment >
                 <Route exact path="/session" render={(props) => {
@@ -294,9 +354,10 @@ class ApplicationViews extends Component {
                         friends={this.state.friends}
                         addFriend={this.addFriend} />
                 }} />
-                 <Route exact path="/schedules" render={(props) => {
+                <Route exact path="/schedules" render={(props) => {
                     return <ScheduleList {...props}
-                        />
+                        schedules={this.state.schedules}
+                    />
                 }} />
 
             </React.Fragment >
