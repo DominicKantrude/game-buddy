@@ -91,13 +91,13 @@
       "id": 19
     },
     {
-      "timeSlot": "2019-03-19 ",
+      "timeSlot": "2019-03-19 01:00-02:00",
       "groupSize": "",
       "users": [],
       "id": 20
     },
     {
-      "timeSlot": "2019-03-19 ",
+      "timeSlot": "2019-03-19 01:00-02:00",
       "groupSize": "",
       "users": [],
       "id": 21
@@ -115,10 +115,28 @@
       "id": 23
     },
     {
-      "timeSlot": "2019-03-19 ",
+      "timeSlot": "2019-03-19 01:00-02:00",
       "groupSize": "",
       "users": [],
       "id": 24
+    },
+    {
+      "timeSlot": "2019/2/20  08:00-09:00",
+      "groupSize": "",
+      "users": [],
+      "id": 25
+    },
+    {
+      "timeSlot": "2019/2/19  10:00-11:00",
+      "groupSize": "",
+      "users": [],
+      "id": 26
+    },
+    {
+      "timeSlot": "2019/2/21  09:00-10:00",
+      "groupSize": "",
+      "users": [],
+      "id": 27
     }
   ],
   "users": [
@@ -314,6 +332,150 @@
       "preferenceId": 3,
       "userId": 1,
       "id": 27
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 28
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 29
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 30
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 31
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 32
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 33
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 34
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 35
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 36
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 37
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 38
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 39
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 40
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 41
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 42
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 43
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 44
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 45
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 46
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 47
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 48
+    },
+    {
+      "sessionId": 25,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 49
+    },
+    {
+      "sessionId": 26,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 50
+    },
+    {
+      "sessionId": 27,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 51
     }
   ],
   "messages": [
@@ -353,6 +515,25 @@
       "id": 4,
       "preference": "League of legends"
     }
-
+  ],
+  "schedules": [
+    {
+      "id": 1,
+      "dayIncrementor": 3,
+      "time": "08:00-09:00",
+      "userId": 1
+    },
+    {
+      "id": 1,
+      "dayIncrementor": 2,
+      "time": "10:00-11:00",
+      "userId": 1
+    },
+    {
+      "id": 1,
+      "dayIncrementor": 4,
+      "time": "09:00-10:00",
+      "userId": 1
+    }
   ]
 }

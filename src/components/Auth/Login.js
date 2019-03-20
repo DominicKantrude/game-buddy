@@ -49,6 +49,7 @@ export default class Login extends Component {
           } else {
             sessionStorage.setItem("credentials", parseInt(user[0].id))
             this.props.setAuth()
+
           }
         }
       )
