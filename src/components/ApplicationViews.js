@@ -8,6 +8,7 @@ import FriendsList from "./FriendsList"
 import FriendsAddForm from "./FriendsAddForm"
 import FriendsManager from "../Modules/FriendsManager"
 import ScheduleList from "./ScheduleList"
+import ScheduleForm from "./ScheduleForm"
 
 
 // need to update some of the methods to reload info the same way. Really probably should refactor the code because that why its messing
@@ -168,7 +169,14 @@ class ApplicationViews extends Component {
                     })
                 }
             })
-            .then(() => this.getSessionAndFriends())
+
+    }
+
+    deleteSchedule = id => {
+        fetch(`http://localhost:5002/schedules/${id}`, {
+                        method: "DELETE"
+                    })
+                    .then(() => this.getLoadInfo())
     }
 
     addFriend = friendToAdd => {
@@ -204,7 +212,15 @@ class ApplicationViews extends Component {
                         preferenceId: preference,
                         userId: parseInt(sessionStorage.getItem("credentials"))
                     }
-                    return SessionManager.addSessionUserRelation(newSessionRelation)
+
+                    fetch(`http://localhost:5002/sessionUserRelation?userId=${parseInt(sessionStorage.getItem("credentials"))}&sessionId=${sessionThatMayExist[0].id}`)
+                        .then(r => r.json())
+                        .then(sessionRelationThatMayExist => {
+                            //check if session already exists
+                            if (Object.keys(sessionRelationThatMayExist).length === 0) {
+                                return SessionManager.addSessionUserRelation(newSessionRelation)
+                            }
+                        }).then(() => this.getLoadInfo())
                 }
                 //if the session doesnt exist create a session and also make a link to that session
                 else {
@@ -215,16 +231,37 @@ class ApplicationViews extends Component {
                                 preferenceId: preference,
                                 userId: parseInt(sessionStorage.getItem("credentials"))
                             }
-                            return SessionManager.addSessionUserRelation(newSessionRelation)
+                            //check if session already exists
+                            if (true) {
+                                return SessionManager.addSessionUserRelation(newSessionRelation)
+                            }
                         })
                 }
             })
             .then(() => this.getLoadInfo())
     }
 
+    addSchedule = schedule => {
+        const newState = {}
+        return fetch("http://localhost:5002/schedules", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(schedule)
+        }).then(() => {
+            fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
+                .then(r => r.json())
+                .then(parsedSchedules => {
+                    newState.schedules = parsedSchedules;
+                    this.setState(newState)
+                })
+        })
+    }
+
     //todo going to have to figure out how to break this promise chain early if we dont get ny results. currently it just decides to
     //grab all sessions if you cant find any .
-    addScheduledSession() {
+    addScheduledSessionsToDatabase() {
         if (this.state.initialLoad === false) {
             fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
                 .then(r => r.json())
@@ -233,34 +270,38 @@ class ApplicationViews extends Component {
                     console.log("i ran")
                     var currentDate = new Date();
                     var day = currentDate.getDay()
-                    console.log({ currentDate })
-                    console.log({ day })
                     let nearestSunday = this.minusDays(currentDate, day)
-                    //we need to pull all schedules for the usersid
 
+                    //loop through all users schedules and add appropriate sessionsÍ
                     parsedSchedules.forEach(schedule => {
                         let firstPassthrough = true;
                         let sessionDateToAdd = 0;
 
-                        if (firstPassthrough) {
-                            firstPassthrough = false;
-                            //add schedule day amount
-                            sessionDateToAdd = this.addDays(nearestSunday, schedule.dayIncrementor)
-                            console.log(sessionDateToAdd)
-                        } else {
-                            sessionDateToAdd += 7
+                        //run loop 5 times to add the 5 next sessions from current date
+                        for (let i = 0; i <= 5; i++) {
+                            //if its the first pass through just add the day picked to sunday which is our 0
+                            if (firstPassthrough) {
+                                firstPassthrough = false;
+                                sessionDateToAdd = this.addDays(nearestSunday, schedule.dayIncrementor)
+
+                            }
+                            //if its not the first pass add 7 days to give us our next date at that day. ex next friday
+                            else {
+                                sessionDateToAdd = this.addDays(sessionDateToAdd, 7)
+                                console.log("me")
+                            }
+                            let year = sessionDateToAdd.getFullYear();
+                            let month = sessionDateToAdd.getMonth()+1;
+                            let day = sessionDateToAdd.getDate();
+
+                            let session =
+                            {
+                                timeSlot: `${year}-${month<10 ? `0${month}`: month}-${day} ${schedule.time}`,
+                                groupSize: "",
+                                users: [],
+                            }
+                            this.addSession(session, 1)
                         }
-                        let year = sessionDateToAdd.getFullYear();
-                        let month = sessionDateToAdd.getMonth();
-                        let day = sessionDateToAdd.getDate();
-                        let session =
-                        {
-                            timeSlot: `${year}/${month}/${day}  ${schedule.time}`,
-                            groupSize: "",
-                            users: [],
-                        }
-                        console.log(session)
-                        this.addSession(session, 1)
                     });
 
                     //console.log(this.addDays(currentDate, //this will be from our scheduler))
@@ -295,7 +336,7 @@ class ApplicationViews extends Component {
 
     componentDidMount() {
         this.getLoadInfo()
-        this.addScheduledSession()
+        this.addScheduledSessionsToDatabase()
 
     }
     //*******this is fetch stuffs */
@@ -357,6 +398,13 @@ class ApplicationViews extends Component {
                 <Route exact path="/schedules" render={(props) => {
                     return <ScheduleList {...props}
                         schedules={this.state.schedules}
+                        deleteSchedule={this.deleteSchedule}
+                    />
+                }} />
+                <Route exact path="/schedules/new" render={(props) => {
+                    return <ScheduleForm {...props}
+                        addSchedule={this.addSchedule}
+                        preferences={this.state.preferences}
                     />
                 }} />
 

@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 class FriendsList extends Component {
     render() {
         return (
-            <section >
+            <section class="commonContainer">
                 <h1>Friends</h1>
                 <button
                     className="friendAddButton btn btn-primary"
@@ -19,10 +19,11 @@ class FriendsList extends Component {
                     }>Add Friend</button>
                 {this.props.friends.map(friend =>
                     <>
-                        <div key={friend.id} class="friend">
+                        <div key={`friend--${friend.id}`} class="friend card">
                             User Name: {friend.user.username}
+                            <button className="friendButton myButton btn btn-primary" onClick={() => this.props.deleteFriend(friend.id)}>Delete</button>
                         </div>
-                        <button className="friendButton btn btn-primary" onClick={() => this.props.deleteFriend(friend.id)}>Delete</button>
+
                     </>
                 )}
 

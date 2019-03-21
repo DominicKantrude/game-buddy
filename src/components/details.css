@@ -1,6 +1,32 @@
-.messagesContainer{
+/* .messagesContainer{
 border: solid 1px black;
-}
+} */
 .message{
-    border: solid 1px black;
+display: flex;
+    margin:15px;
+    padding:10px;
 }
+
+.messageContentMe{
+border-radius: 20px;
+background: lightblue;
+padding: 25px;
+
+width: 450px;
+}
+
+.messageContentYou{
+    display: flex;
+    border-radius: 20px;
+    background: lightgray;
+    padding: 25px;
+    width: 450px;
+    margin:  0px 0px 0px 100px;
+    }
+
+.flexEnd{
+display: flex;
+align-content: flex-end;
+}
+
+

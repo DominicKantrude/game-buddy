@@ -65,7 +65,7 @@ export default class SessionDetail extends Component {
             })
     }
 
-    updateMessage = editedMessage =>{
+    updateMessage = editedMessage => {
         const newState = {}
         fetch(`http://localhost:5002/messages/${editedMessage.id}`, {
             method: "PUT",
@@ -74,14 +74,14 @@ export default class SessionDetail extends Component {
             },
             body: JSON.stringify(editedMessage)
         })
-        .then(() => {
-            fetch(`http://localhost:5002/messages?sessionId=${this.props.match.params.sessionId}&_expand=user`)
-                .then(e => e.json())
-                .then(parsedMessages => {
-                    newState.messages = parsedMessages
-                    this.setState(newState)
-                })
-        })
+            .then(() => {
+                fetch(`http://localhost:5002/messages?sessionId=${this.props.match.params.sessionId}&_expand=user`)
+                    .then(e => e.json())
+                    .then(parsedMessages => {
+                        newState.messages = parsedMessages
+                        this.setState(newState)
+                    })
+            })
     }
 
     componentDidMount() {
@@ -105,82 +105,86 @@ export default class SessionDetail extends Component {
 
         return (
             <React.Fragment >
-                <section>
-                    {
-                        <div key={session.id} class="session">
-                            <p>Session Date: {session.timeSlot}</p>
-                            <p>Group Size: {session.groupSize}</p>
-                            {
-
-                                session.users.map(user => {
-                                    return <p>User: {user}
-                                    </p>
-                                })
-                            }
-                        </div>
-                    }
-                </section>
-                <section className="messagesContainer">
-                    <h1>Messages</h1>
-                    {
-                        this.state.messages.map(message =>
-
-                            <div key={message.id} className={`message ${(message.user.id == parseInt(sessionStorage.getItem("credentials"))) ? "ownMessage" : "otherUserMessage"}`}>
-
+                <section class="messageSectionContainer">
+                    <h1>Details</h1>
+                    <section>
+                        {
+                            <div key={session.id} class="session">
+                                <p>Session Date: {session.timeSlot}</p>
+                                <p>Group Size: {session.groupSize}</p>
                                 {
-                                    (message.user.id == parseInt(sessionStorage.getItem("credentials"))) ?
-                                        (<>
-                                            <p>User: Me</p>
-                                            <div>
-                                                {message.message}
-                                            </div>
-                                            <EditMessageModal
-                                                {...this.props} message={message} updateMessage={this.updateMessage}
-
-                                            />
-                                            <a href="#"
-                                                onClick={() => this.deleteMessage(message.id)}
-                                                className="card-link">Delete</a>
-
-                                        </>)
-                                        :
-                                        (<>
-                                            <p> User:  {message.user.username}</p>
-                                            <div>
-                                                {message.message}
-                                            </div>
-                                        </>)
+                                    session.users.map(user => {
+                                        return <p>User: {user}
+                                        </p>
+                                    })
                                 }
-
-
-
                             </div>
-                        )
+                        }
+                    </section>
+                    <section className="messagesContainer">
+                        <h1>Messages</h1>
+                        {
+                            this.state.messages.map(message =>
 
-                    }
-                    <div>
-                        <form className="form">
-                            <div className="users">
-                                <label htmlFor="thing">Message</label>
-                                <textarea
+                                <div key={message.id} className={`message ${(message.user.id == parseInt(sessionStorage.getItem("credentials"))) ? "ownMessage" : "otherUserMessage"}`}>
+                                    {
+                                        (message.user.id == parseInt(sessionStorage.getItem("credentials"))) ?
+                                            (<>
+                                                <div>
+                                                    <p>Me</p>
+                                                </div>
+                                                <div class="messageContentMe">
+                                                    <div>
+                                                        {message.message}
+                                                    </div>
+                                                    <EditMessageModal
+                                                        {...this.props} message={message} updateMessage={this.updateMessage}
 
-                                    className="form-control"
-                                    id="message"
-                                    placeholder="message"
-                                    onChange={this.handleFieldChange}
-                                    cols={40}
-                                    rows={10} />
-                            </div>
-                            <button
-                                type="submit"
-                                onClick={this.constructNewMessage}
-                                className="btn btn-primary"
-                            >
-                                Submit
+                                                    />
+                                                    <a href="#"
+                                                        onClick={() => this.deleteMessage(message.id)}
+                                                        className="card-link">Delete</a>
+                                                </div>
+
+                                            </>)
+                                            :
+                                            (<>
+                                                <div class="flexEnd">
+                                                    <div class="messageContentYou">
+                                                        {message.message}
+                                                    </div>
+                                                    <div>
+                                                        <p>{message.user.username}</p>
+                                                    </div>
+                                                </div>
+                                            </>)
+                                    }
+                                </div>
+                            )
+                        }
+                        <div>
+                            <form className="form">
+                                <div className="users">
+                                    <label htmlFor="thing">Message</label>
+                                    <textarea
+
+                                        className="form-control"
+                                        id="message"
+                                        placeholder="message"
+                                        onChange={this.handleFieldChange}
+                                        cols={40}
+                                        rows={10} />
+                                </div>
+                                <button
+                                    type="submit"
+                                    onClick={this.constructNewMessage}
+                                    className="btn btn-primary"
+                                >
+                                    Submit
                             </button>
-                        </form>
-                    </div>
-
+                            </form>
+                        </div>
+                    </section>
                 </section>
             </React.Fragment >
         )
