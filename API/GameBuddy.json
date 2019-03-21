@@ -1,142 +1,176 @@
 {
   "sessions": [
     {
-      "timeSlot": "2019-03-11 23:00-24:00",
-      "groupSize": "2",
-      "users": [],
-      "id": 1
-    },
-    {
-      "timeSlot": "2019-03-12 08:00-09:00",
-      "groupSize": "dsd",
+      "timeSlot": "2019-03-30 03:00-04:00",
+      "groupSize": "",
       "users": [],
       "id": 3
     },
     {
-      "timeSlot": "2019-03-22 05:00-06:00",
-      "groupSize": "4",
+      "timeSlot": "2019-03-23 08:00-09:00",
+      "groupSize": "",
       "users": [],
       "id": 4
     },
     {
-      "timeSlot": "2019-03-16 05:00-06:00",
-      "groupSize": "4",
+      "timeSlot": "2019-03-20 01:00-02:00",
+      "groupSize": "",
+      "users": [],
+      "id": 5
+    },
+    {
+      "timeSlot": "2019-03-27 01:00-02:00",
+      "groupSize": "",
+      "users": [],
+      "id": 6
+    },
+    {
+      "timeSlot": "2019-04-3 01:00-02:00",
+      "groupSize": "",
+      "users": [],
+      "id": 7
+    },
+    {
+      "timeSlot": "2019-04-10 01:00-02:00",
+      "groupSize": "",
       "users": [],
       "id": 8
     },
     {
-      "timeSlot": "2019-03-02 03:00-04:00",
-      "groupSize": "2",
+      "timeSlot": "2019-04-17 01:00-02:00",
+      "groupSize": "",
       "users": [],
       "id": 9
     },
     {
-      "timeSlot": "2019-03-20 05:00-06:00",
-      "groupSize": "4",
+      "timeSlot": "2019-04-24 01:00-02:00",
+      "groupSize": "",
       "users": [],
+      "id": 10
+    }
+  ],
+  "friends": [
+    {
+      "relatingUserId": 1,
+      "userId": 3,
+      "id": 1
+    },
+    {
+      "relatingUserId": 6,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "relatingUserId": 1,
+      "userId": 6,
+      "id": 3
+    }
+  ],
+  "sessionUserRelation": [
+    {
+      "sessionId": 3,
+      "preferenceId": 4,
+      "userId": 6,
+      "id": 4
+    },
+    {
+      "sessionId": 5,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 5
+    },
+    {
+      "sessionId": 6,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "sessionId": 7,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 7
+    },
+    {
+      "sessionId": 8,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 8
+    },
+    {
+      "sessionId": 9,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 9
+    },
+    {
+      "sessionId": 10,
+      "preferenceId": 1,
+      "userId": 1,
       "id": 10
     },
     {
-      "timeSlot": "2019-03-07 07:00-08:00",
-      "groupSize": "",
-      "users": [],
+      "sessionId": 5,
+      "preferenceId": 2,
+      "userId": 6,
       "id": 11
     },
     {
-      "timeSlot": "2019-03-01 03:00-04:00",
-      "groupSize": "",
-      "users": [],
+      "sessionId": 3,
+      "preferenceId": 2,
+      "userId": 1,
       "id": 12
+    }
+  ],
+  "messages": [
+    {
+      "message": "mknlkn",
+      "userId": 1,
+      "sessionId": 5,
+      "id": 2
     },
     {
-      "timeSlot": "2019-03-20 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 13
+      "message": "sfsd",
+      "userId": 1,
+      "sessionId": 5,
+      "id": 3
     },
     {
-      "timeSlot": "2019-03-16 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 14
+      "message": "sadasda",
+      "userId": 1,
+      "sessionId": 7,
+      "id": 4
     },
     {
-      "timeSlot": "2019-03-14 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 15
+      "message": "Yo bob you ready to play?",
+      "userId": 1,
+      "sessionId": 3,
+      "id": 5
     },
     {
-      "timeSlot": "2019-03-21 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 16
+      "message": "fo sho",
+      "userId": 6,
+      "sessionId": 3,
+      "id": 6
+    }
+  ],
+  "schedules": [],
+  "preferences": [
+    {
+      "id": 1,
+      "preference": "No preference"
     },
     {
-      "timeSlot": "2019-03-08 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 17
+      "id": 2,
+      "preference": "Halo"
     },
     {
-      "timeSlot": "2019-03-22 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 18
+      "id": 3,
+      "preference": "Apex legends"
     },
     {
-      "timeSlot": "2019-03-15 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 19
-    },
-    {
-      "timeSlot": "2019-03-19 01:00-02:00",
-      "groupSize": "",
-      "users": [],
-      "id": 20
-    },
-    {
-      "timeSlot": "2019-03-19 01:00-02:00",
-      "groupSize": "",
-      "users": [],
-      "id": 21
-    },
-    {
-      "timeSlot": "2019-03-19 01:00-02:00",
-      "groupSize": "",
-      "users": [],
-      "id": 22
-    },
-    {
-      "timeSlot": "2019-03-19 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 23
-    },
-    {
-      "timeSlot": "2019-03-19 01:00-02:00",
-      "groupSize": "",
-      "users": [],
-      "id": 24
-    },
-    {
-      "timeSlot": "2019/2/20  08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 25
-    },
-    {
-      "timeSlot": "2019/2/19  10:00-11:00",
-      "groupSize": "",
-      "users": [],
-      "id": 26
-    },
-    {
-      "timeSlot": "2019/2/21  09:00-10:00",
-      "groupSize": "",
-      "users": [],
-      "id": 27
+      "id": 4,
+      "preference": "League of legends"
     }
   ],
   "users": [
@@ -175,365 +209,6 @@
       "password": "dom",
       "lolTag": "loldom",
       "id": 7
-    }
-  ],
-  "friends": [
-    {
-      "id": 3,
-      "relatingUserId": 2,
-      "userId": 1
-    },
-    {
-      "id": 2,
-      "relatingUserId": 2,
-      "userId": 3
-    },
-    {
-      "relatingUserId": 3,
-      "userId": 1,
-      "id": 5
-    },
-    {
-      "relatingUserId": 1,
-      "userId": 6,
-      "id": 6
-    },
-    {
-      "relatingUserId": 6,
-      "userId": 1,
-      "id": 7
-    },
-    {
-      "relatingUserId": 6,
-      "userId": 2,
-      "id": 8
-    },
-    {
-      "relatingUserId": 1,
-      "userId": 2,
-      "id": 9
-    },
-    {
-      "relatingUserId": 1,
-      "userId": 3,
-      "id": 10
-    },
-    {
-      "relatingUserId": 1,
-      "userId": 7,
-      "id": 11
-    }
-  ],
-  "sessionUserRelation": [
-    {
-      "sessionId": 1,
-      "userId": 2,
-      "preferenceId": 4,
-      "id": 1
-    },
-    {
-      "sessionId": 4,
-      "userId": 1,
-      "preferenceId": 4,
-      "id": 5
-    },
-    {
-      "sessionId": 8,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 10
-    },
-    {
-      "sessionId": 9,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 11
-    },
-    {
-      "sessionId": 10,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 13
-    },
-    {
-      "sessionId": 11,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 14
-    },
-    {
-      "sessionId": 12,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 15
-    },
-    {
-      "sessionId": 13,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 17
-    },
-    {
-      "sessionId": 14,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 18
-    },
-    {
-      "sessionId": 15,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 19
-    },
-    {
-      "sessionId": 16,
-      "userId": 6,
-      "preferenceId": 4,
-      "id": 20
-    },
-    {
-      "sessionId": 17,
-      "preferenceId": 4,
-      "userId": 6,
-      "id": 21
-    },
-    {
-      "sessionId": 19,
-      "preferenceId": 2,
-      "userId": 6,
-      "id": 22
-    },
-    {
-      "sessionId": 21,
-      "preferenceId": 2,
-      "userId": 7,
-      "id": 23
-    },
-    {
-      "sessionId": 22,
-      "preferenceId": 2,
-      "userId": 7,
-      "id": 24
-    },
-    {
-      "sessionId": 23,
-      "preferenceId": 1,
-      "userId": 7,
-      "id": 25
-    },
-    {
-      "sessionId": 24,
-      "preferenceId": 2,
-      "userId": 1,
-      "id": 26
-    },
-    {
-      "sessionId": 22,
-      "preferenceId": 3,
-      "userId": 1,
-      "id": 27
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 28
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 29
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 30
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 31
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 32
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 33
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 34
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 35
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 36
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 37
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 38
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 39
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 40
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 41
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 42
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 43
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 44
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 45
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 46
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 47
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 48
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 49
-    },
-    {
-      "sessionId": 26,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 50
-    },
-    {
-      "sessionId": 27,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 51
-    }
-  ],
-  "messages": [
-    {
-      "id": 2,
-      "message": "k",
-      "userId": 6,
-      "sessionId": 8
-    },
-    {
-      "message": "",
-      "userId": 7,
-      "sessionId": 1,
-      "id": 3
-    },
-    {
-      "message": "blah blah blah\n",
-      "userId": 1,
-      "sessionId": 1,
-      "id": 4
-    }
-  ],
-  "preferences": [
-    {
-      "id": 1,
-      "preference": "No preference"
-    },
-    {
-      "id": 2,
-      "preference": "Halo"
-    },
-    {
-      "id": 3,
-      "preference": "Apex legends"
-    },
-    {
-      "id": 4,
-      "preference": "League of legends"
-    }
-  ],
-  "schedules": [
-    {
-      "id": 1,
-      "dayIncrementor": 3,
-      "time": "08:00-09:00",
-      "userId": 1
-    },
-    {
-      "id": 1,
-      "dayIncrementor": 2,
-      "time": "10:00-11:00",
-      "userId": 1
-    },
-    {
-      "id": 1,
-      "dayIncrementor": 4,
-      "time": "09:00-10:00",
-      "userId": 1
     }
   ]
 }
