@@ -43,12 +43,12 @@ class AddSessionModal extends React.Component {
 
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Add dat Session</Button>
+                <Button color="info" onClick={this.toggle}>Add Session</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Add Session</ModalHeader>
                     <ModalBody>
                     <div className="form-group">
-                        <label htmlFor="timeSlot">Preference</label>
+                        <label htmlFor="timeSlot">Preference: </label>
                         <select
                             defaultValue=""
                             name="preference"
@@ -66,7 +66,7 @@ class AddSessionModal extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Date:</label>
+                        <label>Date: </label>
                         <input
                             type="date"
                             required
@@ -77,7 +77,7 @@ class AddSessionModal extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="timeSlot">Timeslot</label>
+                        <label htmlFor="timeSlot">Timeslot: </label>
                         <select
                             defaultValue=""
                             name="timeSlot"

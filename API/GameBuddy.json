@@ -7,22 +7,10 @@
       "id": 1
     },
     {
-      "timeSlot": "2019-03-26 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 4
-    },
-    {
       "timeSlot": "2019-04-02 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 5
-    },
-    {
-      "timeSlot": "2019-04-23 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 6
     },
     {
       "timeSlot": "2019-04-30 03:00-04:00",
@@ -61,40 +49,88 @@
       "id": 12
     },
     {
-      "timeSlot": "2019-04-01 07:00-08:00",
+      "timeSlot": "2019-04-03 06:00-07:00",
       "groupSize": "",
       "users": [],
-      "id": 19
+      "id": 44
     },
     {
-      "timeSlot": "2019-04-08 07:00-08:00",
+      "timeSlot": "2019-05-01 06:00-07:00",
       "groupSize": "",
       "users": [],
-      "id": 20
+      "id": 49
     },
     {
-      "timeSlot": "2019-04-15 07:00-08:00",
+      "timeSlot": "2019-04-03 07:00-08:00",
       "groupSize": "",
       "users": [],
-      "id": 21
+      "id": 56
     },
     {
-      "timeSlot": "2019-04-22 07:00-08:00",
+      "timeSlot": "2019-04-10 07:00-08:00",
       "groupSize": "",
       "users": [],
-      "id": 22
+      "id": 57
     },
     {
-      "timeSlot": "2019-04-29 07:00-08:00",
+      "timeSlot": "2019-04-10 06:00-07:00",
       "groupSize": "",
       "users": [],
-      "id": 23
+      "id": 68
     },
     {
-      "timeSlot": "2019-05-06 07:00-08:00",
+      "timeSlot": "2019-04-17 06:00-07:00",
       "groupSize": "",
       "users": [],
-      "id": 24
+      "id": 70
+    },
+    {
+      "timeSlot": "2019-04-24 06:00-07:00",
+      "groupSize": "",
+      "users": [],
+      "id": 71
+    },
+    {
+      "timeSlot": "2019-05-08 06:00-07:00",
+      "groupSize": "",
+      "users": [],
+      "id": 72
+    },
+    {
+      "timeSlot": "2019-04-01 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 73
+    },
+    {
+      "timeSlot": "2019-04-08 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 74
+    },
+    {
+      "timeSlot": "2019-04-15 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 75
+    },
+    {
+      "timeSlot": "2019-04-22 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 76
+    },
+    {
+      "timeSlot": "2019-04-29 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 77
+    },
+    {
+      "timeSlot": "2019-05-06 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 78
     }
   ],
   "friends": [
@@ -104,29 +140,14 @@
       "id": 1
     },
     {
-      "relatingUserId": 3,
-      "userId": 2,
-      "id": 2
-    },
-    {
-      "relatingUserId": 2,
-      "userId": 1,
+      "relatingUserId": 1,
+      "userId": 4,
       "id": 3
     },
     {
       "relatingUserId": 1,
-      "userId": 2,
-      "id": 4
-    },
-    {
-      "relatingUserId": 2,
-      "userId": 6,
-      "id": 6
-    },
-    {
-      "relatingUserId": 1,
       "userId": 3,
-      "id": 7
+      "id": 4
     }
   ],
   "sessionUserRelation": [
@@ -137,100 +158,118 @@
       "id": 1
     },
     {
-      "sessionId": 1,
-      "preferenceId": 4,
-      "userId": 2,
+      "sessionId": 44,
+      "preferenceId": 2,
+      "userId": 1,
       "id": 2
     },
     {
-      "sessionId": 5,
-      "preferenceId": 1,
+      "sessionId": 70,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 6
+      "id": 3
     },
     {
-      "sessionId": 6,
-      "preferenceId": 1,
+      "sessionId": 71,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 7
+      "id": 4
     },
     {
-      "sessionId": 8,
-      "preferenceId": 1,
+      "sessionId": 72,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 8
+      "id": 5
     },
     {
-      "sessionId": 9,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 9
-    },
-    {
-      "sessionId": 4,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 10
-    },
-    {
-      "sessionId": 7,
-      "preferenceId": 1,
+      "sessionId": 49,
+      "preferenceId": 2,
       "userId": 1,
       "id": 11
     },
     {
-      "sessionId": 10,
-      "preferenceId": 1,
+      "sessionId": 68,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 12
+      "id": 30
     },
     {
-      "sessionId": 11,
-      "preferenceId": 4,
+      "sessionId": 73,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 13
+      "id": 31
     },
     {
-      "sessionId": 12,
-      "preferenceId": 4,
+      "sessionId": 74,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 14
+      "id": 32
     },
     {
-      "sessionId": 19,
-      "preferenceId": 1,
+      "sessionId": 75,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 21
+      "id": 33
     },
     {
-      "sessionId": 20,
-      "preferenceId": 1,
+      "sessionId": 76,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 22
+      "id": 34
     },
     {
-      "sessionId": 21,
-      "preferenceId": 1,
+      "sessionId": 77,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 23
+      "id": 35
     },
     {
-      "sessionId": 22,
-      "preferenceId": 1,
+      "sessionId": 78,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 24
+      "id": 36
     },
     {
-      "sessionId": 23,
-      "preferenceId": 1,
+      "sessionId": 78,
+      "preferenceId": 2,
       "userId": 1,
-      "id": 25
+      "id": 37
     },
     {
-      "sessionId": 24,
-      "preferenceId": 1,
-      "userId": 1,
-      "id": 26
+      "sessionId": 73,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 38
+    },
+    {
+      "sessionId": 74,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 39
+    },
+    {
+      "sessionId": 75,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 40
+    },
+    {
+      "sessionId": 76,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 41
+    },
+    {
+      "sessionId": 77,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 42
+    },
+    {
+      "sessionId": 78,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 43
     }
   ],
   "messages": [
@@ -241,31 +280,44 @@
       "id": 1
     },
     {
-      "message": "dfdfsdf",
+      "message": "",
       "userId": 1,
-      "sessionId": 11,
+      "sessionId": 73,
+      "id": 2
+    },
+    {
+      "message": "sadsdasdasd",
+      "userId": 1,
+      "sessionId": 73,
       "id": 3
     },
     {
-      "message": "fdfsfs",
+      "message": "dsfdf",
       "userId": 1,
-      "sessionId": 5,
+      "sessionId": 44,
       "id": 4
     },
     {
-      "id": 5,
-      "message": "sdsd",
+      "message": "dsfdf",
       "userId": 1,
-      "sessionId": 5
+      "sessionId": 44,
+      "id": 5
     }
   ],
   "schedules": [
     {
-      "preferece": 3,
+      "preference": 2,
       "dayIncrementor": 1,
-      "time": "07:00-08:00",
+      "time": "03:00-04:00",
       "userId": 1,
       "id": 3
+    },
+    {
+      "preference": 2,
+      "dayIncrementor": 1,
+      "time": "03:00-04:00",
+      "userId": 3,
+      "id": 4
     }
   ],
   "preferences": [

@@ -7,6 +7,7 @@ class AddScheduleModal extends React.Component {
         modal: false,
         dayIncrementor: "",
         time: "",
+        preference: "",
         userId: parseInt(sessionStorage.getItem("credentials"))
     }
 
@@ -26,11 +27,12 @@ class AddScheduleModal extends React.Component {
         evt.preventDefault();
 
         const schedule = {
-            preferece: parseInt(this.state.preference),
+            preference: parseInt(this.state.preference),
             dayIncrementor: parseInt(this.state.dayIncrementor),
             time: this.state.time,
             userId: this.state.userId
         };
+
         this.setState({ modal: false })
         this.props.addSchedule(schedule)
 
@@ -46,7 +48,7 @@ class AddScheduleModal extends React.Component {
                     <ModalHeader toggle={this.toggle}>Add Schedule</ModalHeader>
                     <ModalBody>
                         <div className="form-group">
-                            <label htmlFor="timeSlot">Preference</label>
+                            <label htmlFor="timeSlot">Preference: </label>
                             <select
                                 defaultValue=""
                                 name="preference"
@@ -62,7 +64,7 @@ class AddScheduleModal extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="dayPicked">Timeslot</label>
+                            <label htmlFor="dayPicked">Day: </label>
                             <select
                                 defaultValue=""
                                 name="dayIncrementor"
@@ -80,7 +82,7 @@ class AddScheduleModal extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="time">Timeslot</label>
+                            <label htmlFor="time">Timeslot: </label>
                             <select
                                 defaultValue=""
                                 name="time"

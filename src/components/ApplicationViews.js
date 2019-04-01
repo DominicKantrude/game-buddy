@@ -110,7 +110,7 @@ class ApplicationViews extends Component {
                             });
                             userSession.groupSize = groupSize;
                         });
-                        console.log(newState.usersSessions)
+
                         if (this.state.sortBy === "groupSize") {
                             newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return userSessionB.groupSize - userSessionA.groupSize });
                         } else {
@@ -306,7 +306,8 @@ class ApplicationViews extends Component {
                         let scheduleSessionsObject = this.getScheduledSessions(nearestSunday, schedule)
 
                         scheduleSessionsObject.forEach(newSession => {
-                            this.addSession(newSession, 1)
+
+                            this.addSession(newSession, schedule.preference)
                         });
                     });
                 })
@@ -398,12 +399,7 @@ class ApplicationViews extends Component {
                 <Route exact path="/session/:sessionId(\d+)" render={(props) => {
                     return <SessionDetail {...props} deleteMessage={this.deleteMessage} sessions={this.state.usersSessions} />
                 }} />
-                <Route exact path="/session/new" render={(props) => {
-                    return <SessionForm {...props}
-                        preferences={this.state.preferences}
-                        addSession={this.addSession}
-                        usersSessions={this.state.usersSessios} />
-                }} />
+
                 <Route exact path="/friends" render={props => {
                     // if (this.isAuthenticated()) {
                     return <FriendsList {...props}
@@ -415,23 +411,13 @@ class ApplicationViews extends Component {
                     //     return <Redirect to="/login" />
                     // }
                 }} />
-                <Route exact path="/friends/new" render={(props) => {
-                    return <FriendsAddForm {...props}
-                        friends={this.state.friends}
-                        addFriend={this.addFriend} />
-                }} />
+
                 <Route exact path="/schedules" render={(props) => {
                     return <ScheduleList {...props}
                         preferences={this.state.preferences}
                         addSchedule={this.addSchedule}
                         schedules={this.state.schedules}
                         deleteSchedule={this.deleteSchedule}
-                    />
-                }} />
-                <Route exact path="/schedules/new" render={(props) => {
-                    return <ScheduleForm {...props}
-                        addSchedule={this.addSchedule}
-                        preferences={this.state.preferences}
                     />
                 }} />
 
