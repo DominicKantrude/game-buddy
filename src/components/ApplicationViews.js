@@ -10,15 +10,6 @@ import FriendsManager from "../Modules/FriendsManager"
 import ScheduleList from "./ScheduleList"
 import ScheduleForm from "./ScheduleForm"
 
-
-// need to update some of the methods to reload info the same way. Really probably should refactor the code because that why its messing
-//up when i change it in one place. Also coming back from friends to sessions doesnt seem to be affecting state properly.
-//once these are taken care of i can decide what stretch goal to pursue. Eiterh API which will prob look the coolest or the scheduler
-
-
-//http://localhost:3003/users?_embed=animals
-//so what this does is get all animals with users conneceted?
-
 class ApplicationViews extends Component {
 
     state = {
@@ -26,12 +17,12 @@ class ApplicationViews extends Component {
         friends: [],
         preferences: [],
         schedules: [],
-        initialLoad: false
+        initialLoad: false,
+        sortBy: "groupSize"
     }
 
-    getLoadInfo() {
+    getLoadInfo = () => {
         const newState = {}
-
 
         fetch(`http://localhost:5002/preferences`)
             .then(r => r.json())
@@ -119,10 +110,24 @@ class ApplicationViews extends Component {
                             });
                             userSession.groupSize = groupSize;
                         });
+                        console.log(newState.usersSessions)
+                        if (this.state.sortBy === "groupSize") {
+                            newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return userSessionB.groupSize - userSessionA.groupSize });
+                        } else {
+
+                            newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
+                        }
                         //push new state which now shows all sessions for that user with all users that are friends that are connected to thier sessions
                         this.setState(newState)
                     })
             })
+    }
+
+    toggleSorting = sortingType => {
+        const newState = {}
+        newState.sortBy = sortingType
+        this.setState(newState)
+        console.log(this.state)
     }
 
     deleteFriend = id => {
@@ -168,15 +173,38 @@ class ApplicationViews extends Component {
                         })
                     })
                 }
-            })
+            }).then(() => this.getLoadInfo())
 
     }
 
     deleteSchedule = id => {
+        if (window.confirm("Would you like to delete all created sessions from this schedule?")) {
+
+            var currentDate = new Date();
+            var day = currentDate.getDay()
+            let nearestSunday = this.minusDays(currentDate, day)
+
+            //so now all we gotta do is a fetch for the schedule that matches the id we are trying to delete
+            fetch(`http://localhost:5002/schedules/${id}`)
+                .then(e => e.json())
+                .then(schedule => {
+                    //get the dates the schedule would create
+                    let scheduleSessionsObject = this.getScheduledSessions(nearestSunday, schedule)
+
+                    scheduleSessionsObject.forEach(sessionDateToDelete => {
+                        //get the actual sessions associated with the times the schedule created
+                        fetch(`http://localhost:5002/sessions?timeSlot=${sessionDateToDelete.timeSlot}`)
+                            .then(e => e.json())
+                            .then(actualSessionsToDelete => {
+                                this.deleteSession(actualSessionsToDelete[0].id)
+                            })
+                    });
+                })
+        }
         fetch(`http://localhost:5002/schedules/${id}`, {
-                        method: "DELETE"
-                    })
-                    .then(() => this.getLoadInfo())
+            method: "DELETE"
+        })
+            .then(() => this.getLoadInfo())
     }
 
     addFriend = friendToAdd => {
@@ -195,7 +223,7 @@ class ApplicationViews extends Component {
                     newState.friends = parsedFriends
                     this.setState(newState)
                 })
-        })
+        }).then(() => this.getLoadInfo())
     }
 
     addSession = (session, preference) => {
@@ -267,59 +295,55 @@ class ApplicationViews extends Component {
                 .then(r => r.json())
                 .then(parsedSchedules => {
                     this.state.initialLoad = true;
-                    console.log("i ran")
+
                     var currentDate = new Date();
                     var day = currentDate.getDay()
                     let nearestSunday = this.minusDays(currentDate, day)
 
                     //loop through all users schedules and add appropriate sessionsÍ
                     parsedSchedules.forEach(schedule => {
-                        let firstPassthrough = true;
-                        let sessionDateToAdd = 0;
 
-                        //run loop 5 times to add the 5 next sessions from current date
-                        for (let i = 0; i <= 5; i++) {
-                            //if its the first pass through just add the day picked to sunday which is our 0
-                            if (firstPassthrough) {
-                                firstPassthrough = false;
-                                sessionDateToAdd = this.addDays(nearestSunday, schedule.dayIncrementor)
+                        let scheduleSessionsObject = this.getScheduledSessions(nearestSunday, schedule)
 
-                            }
-                            //if its not the first pass add 7 days to give us our next date at that day. ex next friday
-                            else {
-                                sessionDateToAdd = this.addDays(sessionDateToAdd, 7)
-                                console.log("me")
-                            }
-                            let year = sessionDateToAdd.getFullYear();
-                            let month = sessionDateToAdd.getMonth()+1;
-                            let day = sessionDateToAdd.getDate();
-
-                            let session =
-                            {
-                                timeSlot: `${year}-${month<10 ? `0${month}`: month}-${day} ${schedule.time}`,
-                                groupSize: "",
-                                users: [],
-                            }
-                            this.addSession(session, 1)
-                        }
+                        scheduleSessionsObject.forEach(newSession => {
+                            this.addSession(newSession, 1)
+                        });
                     });
-
-                    //console.log(this.addDays(currentDate, //this will be from our scheduler))
-
-                    //0 is sunday
-                    //we subtract the day number from our month to set us to the nearest sunday.
-
-
-
-
                 })
-
-            //we then grab the last day of the month so we
-            //now when to increment the next month. we then add the day converted to number to our startSunday and check if that passes
-            //the threshhold. if i does subrtact the threshold increment the month and add the day as a reminder. add the time as well.
-            //loop through this 4 times add these to an array. For each in the array send that argument to our add session with it formated
-            //properly to be added to the database.
         }
+    }
+
+    getScheduledSessions = (nearestSunday, schedule) => {
+        //run loop 5 times to add the 5 next sessions from current date
+        let firstPassthrough = true;
+        let sessionDateToAdd = 0;
+        let scheduleSessionsObject = [];
+        for (let i = 0; i <= 5; i++) {
+            //if its the first pass through just add the day picked to sunday which is our 0
+            if (firstPassthrough) {
+                firstPassthrough = false;
+                sessionDateToAdd = this.addDays(nearestSunday, schedule.dayIncrementor)
+
+            }
+            //if its not the first pass add 7 days to give us our next date at that day. ex next friday
+            else {
+                sessionDateToAdd = this.addDays(sessionDateToAdd, 7)
+
+            }
+            let year = sessionDateToAdd.getFullYear();
+            let month = sessionDateToAdd.getMonth() + 1;
+            let day = sessionDateToAdd.getDate();
+
+            let session =
+            {
+                timeSlot: `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day} ${schedule.time}`,
+                groupSize: "",
+                users: [],
+            }
+            scheduleSessionsObject.push(session)
+
+        }
+        return scheduleSessionsObject
     }
 
     minusDays(date, days) {
@@ -364,11 +388,12 @@ class ApplicationViews extends Component {
 
 
     render() {
-        console.log(this.state)
+
         return (
             <React.Fragment >
                 <Route exact path="/session" render={(props) => {
-                    return <SessionList {...props} userSessions={this.state.usersSessions} deleteSession={this.deleteSession} />
+                    return <SessionList {...props} userSessions={this.state.usersSessions} deleteSession={this.deleteSession}
+                        toggleSorting={this.toggleSorting} addSession={this.addSession} preferences={this.state.preferences} getLoadInfo={this.getLoadInfo} />
                 }} />
                 <Route exact path="/session/:sessionId(\d+)" render={(props) => {
                     return <SessionDetail {...props} deleteMessage={this.deleteMessage} sessions={this.state.usersSessions} />
@@ -397,6 +422,8 @@ class ApplicationViews extends Component {
                 }} />
                 <Route exact path="/schedules" render={(props) => {
                     return <ScheduleList {...props}
+                        preferences={this.state.preferences}
+                        addSchedule={this.addSchedule}
                         schedules={this.state.schedules}
                         deleteSchedule={this.deleteSchedule}
                     />

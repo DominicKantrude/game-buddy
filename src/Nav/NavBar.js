@@ -9,7 +9,7 @@ class NavBar extends Component {
         return (
             <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
                 <ul className="nav nav-pills">
-                    <li className="nav-item flex-row flex-center">
+                    <li className="nav-item flex-row">
                         <Link className="nav-link" to="/session">Sessions</Link>
                         <Link className="nav-link" to="/friends">Friends</Link>
                         <Link className="nav-link" to="/schedules">Scheduler</Link>

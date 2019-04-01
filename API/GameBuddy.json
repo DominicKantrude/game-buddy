@@ -1,92 +1,155 @@
 {
   "sessions": [
     {
-      "timeSlot": "2019-03-30 03:00-04:00",
+      "timeSlot": "2019-03-21 05:00-06:00",
       "groupSize": "",
       "users": [],
-      "id": 3
+      "id": 1
     },
     {
-      "timeSlot": "2019-03-23 08:00-09:00",
+      "timeSlot": "2019-03-26 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 4
     },
     {
-      "timeSlot": "2019-03-20 01:00-02:00",
+      "timeSlot": "2019-04-02 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 5
     },
     {
-      "timeSlot": "2019-03-27 01:00-02:00",
+      "timeSlot": "2019-04-23 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 6
     },
     {
-      "timeSlot": "2019-04-3 01:00-02:00",
+      "timeSlot": "2019-04-30 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 7
     },
     {
-      "timeSlot": "2019-04-10 01:00-02:00",
+      "timeSlot": "2019-04-09 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 8
     },
     {
-      "timeSlot": "2019-04-17 01:00-02:00",
+      "timeSlot": "2019-04-16 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 9
     },
     {
-      "timeSlot": "2019-04-24 01:00-02:00",
+      "timeSlot": "2019-05-07 03:00-04:00",
       "groupSize": "",
       "users": [],
       "id": 10
+    },
+    {
+      "timeSlot": "2019-03-13 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 11
+    },
+    {
+      "timeSlot": "2019-11-15 20:00-21:00",
+      "groupSize": "",
+      "users": [],
+      "id": 12
+    },
+    {
+      "timeSlot": "2019-04-01 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 19
+    },
+    {
+      "timeSlot": "2019-04-08 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 20
+    },
+    {
+      "timeSlot": "2019-04-15 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 21
+    },
+    {
+      "timeSlot": "2019-04-22 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 22
+    },
+    {
+      "timeSlot": "2019-04-29 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 23
+    },
+    {
+      "timeSlot": "2019-05-06 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 24
     }
   ],
   "friends": [
     {
-      "relatingUserId": 1,
-      "userId": 3,
+      "relatingUserId": 3,
+      "userId": 1,
       "id": 1
     },
     {
-      "relatingUserId": 6,
-      "userId": 1,
+      "relatingUserId": 3,
+      "userId": 2,
       "id": 2
     },
     {
-      "relatingUserId": 1,
-      "userId": 6,
+      "relatingUserId": 2,
+      "userId": 1,
       "id": 3
+    },
+    {
+      "relatingUserId": 1,
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "relatingUserId": 2,
+      "userId": 6,
+      "id": 6
+    },
+    {
+      "relatingUserId": 1,
+      "userId": 3,
+      "id": 7
     }
   ],
   "sessionUserRelation": [
     {
-      "sessionId": 3,
+      "sessionId": 1,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 1
+    },
+    {
+      "sessionId": 1,
       "preferenceId": 4,
-      "userId": 6,
-      "id": 4
+      "userId": 2,
+      "id": 2
     },
     {
       "sessionId": 5,
       "preferenceId": 1,
       "userId": 1,
-      "id": 5
-    },
-    {
-      "sessionId": 6,
-      "preferenceId": 1,
-      "userId": 1,
       "id": 6
     },
     {
-      "sessionId": 7,
+      "sessionId": 6,
       "preferenceId": 1,
       "userId": 1,
       "id": 7
@@ -104,57 +167,107 @@
       "id": 9
     },
     {
-      "sessionId": 10,
+      "sessionId": 4,
       "preferenceId": 1,
       "userId": 1,
       "id": 10
     },
     {
-      "sessionId": 5,
-      "preferenceId": 2,
-      "userId": 6,
+      "sessionId": 7,
+      "preferenceId": 1,
+      "userId": 1,
       "id": 11
     },
     {
-      "sessionId": 3,
-      "preferenceId": 2,
+      "sessionId": 10,
+      "preferenceId": 1,
       "userId": 1,
       "id": 12
+    },
+    {
+      "sessionId": 11,
+      "preferenceId": 4,
+      "userId": 1,
+      "id": 13
+    },
+    {
+      "sessionId": 12,
+      "preferenceId": 4,
+      "userId": 1,
+      "id": 14
+    },
+    {
+      "sessionId": 19,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 21
+    },
+    {
+      "sessionId": 20,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 22
+    },
+    {
+      "sessionId": 21,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 23
+    },
+    {
+      "sessionId": 22,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 24
+    },
+    {
+      "sessionId": 23,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 25
+    },
+    {
+      "sessionId": 24,
+      "preferenceId": 1,
+      "userId": 1,
+      "id": 26
     }
   ],
   "messages": [
     {
-      "message": "mknlkn",
+      "message": "bgj",
       "userId": 1,
-      "sessionId": 5,
-      "id": 2
+      "sessionId": 1,
+      "id": 1
     },
     {
-      "message": "sfsd",
+      "message": "dfdfsdf",
       "userId": 1,
-      "sessionId": 5,
+      "sessionId": 11,
       "id": 3
     },
     {
-      "message": "sadasda",
+      "message": "fdfsfs",
       "userId": 1,
-      "sessionId": 7,
+      "sessionId": 5,
       "id": 4
     },
     {
-      "message": "Yo bob you ready to play?",
+      "id": 5,
+      "message": "sdsd",
       "userId": 1,
-      "sessionId": 3,
-      "id": 5
-    },
-    {
-      "message": "fo sho",
-      "userId": 6,
-      "sessionId": 3,
-      "id": 6
+      "sessionId": 5
     }
   ],
-  "schedules": [],
+  "schedules": [
+    {
+      "preferece": 3,
+      "dayIncrementor": 1,
+      "time": "07:00-08:00",
+      "userId": 1,
+      "id": 3
+    }
+  ],
   "preferences": [
     {
       "id": 1,
@@ -176,17 +289,17 @@
   "users": [
     {
       "id": 1,
-      "username": "Dominic Kantrude",
+      "username": "Dominic",
       "password": "password"
     },
     {
       "id": 2,
-      "username": "James Sanchez",
+      "username": "Connor",
       "password": "password"
     },
     {
       "id": 3,
-      "username": "Daniel Mendez",
+      "username": "Sam",
       "password": "password"
     },
     {
