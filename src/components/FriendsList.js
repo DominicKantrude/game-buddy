@@ -6,7 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 class FriendsList extends Component {
     render() {
         return (
-            <section class="commonContainer">
+
+            <section class="commonContainer center-background">
                 <h1>Friends</h1>
                 <AddFriendModal
                     {...this.props} addFriend={this.props.addFriend}
