@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import SessionList from "./SessionList"
 import SessionDetail from "./SessionDetails"
 import SessionManager from "../Modules/SessionManager"
-import SessionForm from "./SessionForm"
+
 import FriendsList from "./FriendsList"
-import FriendsAddForm from "./FriendsAddForm"
+
 import FriendsManager from "../Modules/FriendsManager"
 import ScheduleList from "./ScheduleList"
-import ScheduleForm from "./ScheduleForm"
+
 
 class ApplicationViews extends Component {
 
@@ -105,7 +105,7 @@ class ApplicationViews extends Component {
                                 //of  the game theu want to play
                                 if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
                                     groupSize++;
-                                    userSession.users.push(sessionRelation.user.username + " Preference: " + newState.preferences[sessionRelation.preferenceId - 1].preference)
+                                    userSession.users.push({user: sessionRelation.user.username, preference:  newState.preferences[sessionRelation.preferenceId - 1].preference})
                                 }
                             });
                             userSession.groupSize = groupSize;
@@ -177,29 +177,34 @@ class ApplicationViews extends Component {
 
     }
 
-    deleteSchedule = id => {
+
+    deleteTiedSessions = (id) => {
+        var currentDate = new Date();
+        var day = currentDate.getDay()
+        let nearestSunday = this.minusDays(currentDate, day)
+
+        //so now all we gotta do is a fetch for the schedule that matches the id we are trying to delete
+        fetch(`http://localhost:5002/schedules/${id}`)
+            .then(e => e.json())
+            .then(schedule => {
+                //get the dates the schedule would create
+                let scheduleSessionsObject = this.getScheduledSessions(nearestSunday, schedule)
+                console.log(schedule)
+                scheduleSessionsObject.forEach(sessionDateToDelete => {
+                    //get the actual sessions associated with the times the schedule created
+                    fetch(`http://localhost:5002/sessions?timeSlot=${sessionDateToDelete.timeSlot}`)
+                        .then(e => e.json())
+                        .then(actualSessionsToDelete => {
+                            this.deleteSession(actualSessionsToDelete[0].id)
+                        })
+                });
+            })
+    }
+
+
+    deleteSchedule = (id) => {
         if (window.confirm("Would you like to delete all created sessions from this schedule?")) {
-
-            var currentDate = new Date();
-            var day = currentDate.getDay()
-            let nearestSunday = this.minusDays(currentDate, day)
-
-            //so now all we gotta do is a fetch for the schedule that matches the id we are trying to delete
-            fetch(`http://localhost:5002/schedules/${id}`)
-                .then(e => e.json())
-                .then(schedule => {
-                    //get the dates the schedule would create
-                    let scheduleSessionsObject = this.getScheduledSessions(nearestSunday, schedule)
-
-                    scheduleSessionsObject.forEach(sessionDateToDelete => {
-                        //get the actual sessions associated with the times the schedule created
-                        fetch(`http://localhost:5002/sessions?timeSlot=${sessionDateToDelete.timeSlot}`)
-                            .then(e => e.json())
-                            .then(actualSessionsToDelete => {
-                                this.deleteSession(actualSessionsToDelete[0].id)
-                            })
-                    });
-                })
+            this.deleteTiedSessions(id)
         }
         fetch(`http://localhost:5002/schedules/${id}`, {
             method: "DELETE"
@@ -364,27 +369,25 @@ class ApplicationViews extends Component {
         this.addScheduledSessionsToDatabase()
 
     }
-    //*******this is fetch stuffs */
 
-    // var obj = {
-    //     method: 'GET',
-    //     headers: {
-    //         "mode": "no-cors",
-    //     //"Authorization": "hv0QW60mrc5hKMms3TfDWoFnZeZgiF5vk6unKbgWdrA",
-    //     "Authorization": "1512813b-81f0-472d-a026-273ee5baded1",
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-
-    //     }
-    // }
-    // // fetch('https://www.apexlegendsapi.com/api/v1/player?platform={pc}&name={LordVngy}', obj)
-    // // .then(r => r.json())
-    // // .then(stores => console.log(stores))
-
-    // fetch('https://public-api.tracker.gg/apex/v1/standard/profile/{5}/{LordVngy}', obj)
-    // .then(r => r.json())
-    // .then(stores => console.log(stores))
-
+    editSchedule = (editedSchedule, oldSchedule) => {
+        const newState = {}
+        this.deleteTiedSessions(editedSchedule.id)
+        fetch(`http://localhost:5002/schedules/${editedSchedule.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedSchedule)
+        }).then(() => {
+            fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
+                .then(r => r.json())
+                .then(parsedSchedules => {
+                    newState.schedules = parsedSchedules;
+                    this.setState(newState)
+                })
+        })
+    }
 
 
 
@@ -414,6 +417,7 @@ class ApplicationViews extends Component {
 
                 <Route exact path="/schedules" render={(props) => {
                     return <ScheduleList {...props}
+                        editSchedule={this.editSchedule}
                         preferences={this.state.preferences}
                         addSchedule={this.addSchedule}
                         schedules={this.state.schedules}

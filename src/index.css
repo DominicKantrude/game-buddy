@@ -52,7 +52,9 @@ code {
   border-radius: 5px;
   padding:  20px 20px 0px 20px;
   margin: 25px;
+  min-width: 350px;
   width:350px;
+
 }
 
 .myButton{
@@ -157,6 +159,9 @@ align-self: flex-start;
   width: 50%;
 }
 
+
+
+
 .border{
   border: 1px solid black;
 }
@@ -168,4 +173,34 @@ align-self: flex-start;
   justify-content: center;
 }
 
+.top-pad{
+  padding: 8px 0px 0px 0px;
+}
 
+.center-background{
+
+    margin: auto;
+    width: 80%;
+    background-color:rgba(blue, 0.3);
+    z-index: -1;
+    min-height: 100vh;
+
+
+    /* background: url(klematis.jpg) repeat; */
+  border: 2px solid black;
+    padding: 10px;
+
+}
+
+img {
+  opacity: 0.5;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.padding-bot15{
+  padding: 0px 0px 15px 0px;
+}
+
+.users{
+  margin: 0px 10px;
+}

@@ -27,13 +27,13 @@ class SessionList extends Component {
             <React.Fragment>
 
                 <div class="backgroundContainer">
-                    <section class="commonContainer">
+                    <section class="commonContainer center-background">
                         <h1>Session List</h1>
                         <div className="flex-row-space">
                             <AddSessionModal
                                 {...this.props} addSession={this.props.addSession} preferences={this.props.preferences} updateMessage={this.updateMessage}
                             />
-                            <div>
+                            <div className="top-pad">
                                 Sort By:
 
                             <select
@@ -53,14 +53,17 @@ class SessionList extends Component {
                                 <div key={session.id} class="session card">
                                     <h3 className="centered">Session Date: {session.timeSlot}</h3>
                                     <hr></hr>
-                                    <div className="flex-row-space-even">
-                                        <p>Preference: {session.preference}</p>
-                                        <p>Group Size: {session.groupSize}</p>
+                                    <div className="flex-row-space-even padding-bot15">
+                                        <h4>Preference: {session.preference}</h4>
+                                        <h4>Group Size: {session.groupSize}</h4>
                                     </div>
                                     {
                                         session.users.map(user => {
-                                            return <p>User: {user}
-                                            </p>
+
+                                            return <div className="flex-row ">
+                                            <p className="users"> User: {user.user} </p>
+                                            <p className="users">Preference: {user.preference}</p>
+                                            </div>
                                         })
                                     }
                                     <div className="flex-row-end">

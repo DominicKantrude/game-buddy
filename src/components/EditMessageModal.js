@@ -24,7 +24,6 @@ class EditMessageModal extends React.Component {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
-        //newFriendShip["friend"] = evt.target.value;
     };
 
     editMessage = evt => {

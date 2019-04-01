@@ -30,7 +30,6 @@ export default class SessionDetail extends Component {
     constructNewMessage = evt => {
         evt.preventDefault();
 
-
         const newMessage = {
             message: this.state.message,
             userId: parseInt(sessionStorage.getItem("credentials")),
@@ -53,6 +52,8 @@ export default class SessionDetail extends Component {
                 })
 
         })
+        const newState = {};
+
     }
 
     deleteMessage = id => {
@@ -119,8 +120,10 @@ export default class SessionDetail extends Component {
                                 <p>Group Size: {session.groupSize}</p>
                                 {
                                     session.users.map(user => {
-                                        return <p>User: {user}
-                                        </p>
+                                        return <div className="flex-row ">
+                                        <p className="users"> User: {user.user} </p>
+                                        <p className="users">Preference: {user.preference}</p>
+                                        </div>
                                     })
                                 }
                             </div>
