@@ -46,7 +46,6 @@ export default class SessionForm extends Component {
                             onChange={this.handleFieldChange}
                         >
                             {
-
                                 this.props.preferences.map(preference => {
                                     return <option key={preference.id} id={preference.id} value={preference.id}>{preference.preference}</option>
                                 }

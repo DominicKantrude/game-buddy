@@ -114,7 +114,7 @@ export default class SessionDetail extends Component {
                     <h1>Details</h1>
                     <section>
                         {
-                            <div key={session.id} class="session">
+                            <div key={session.id} className="session">
                                 <p>Session Date: {session.timeSlot}</p>
                                 <p>Group Size: {session.groupSize}</p>
                                 {
