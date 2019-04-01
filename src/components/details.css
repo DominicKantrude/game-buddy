@@ -10,7 +10,7 @@ display: flex;
 .messageContentMe{
 border-radius: 20px;
 background: lightblue;
-padding: 25px;
+padding: 0px 15px;
 
 width: 450px;
 }

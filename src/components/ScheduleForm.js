@@ -58,7 +58,6 @@ export default class ScheduleForm extends Component {
                             id="dayIncrementor"
                             onChange={this.handleFieldChange}
                         >
-
                             <option key="sunday" id="sunday" value="0">Sunday</option>
                             <option key="monday" id="monday" value="1">Monday</option>
                             <option key="tuesday" id="tuesday" value="2">Tuesday</option>

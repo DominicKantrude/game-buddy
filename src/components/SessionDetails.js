@@ -2,6 +2,11 @@ import React, { Component } from "react"
 import "./details.css"
 import EditMessageModal from "./EditMessageModal"
 
+import IconButton from '@material-ui/core/IconButton';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 export default class SessionDetail extends Component {
 
 
@@ -128,22 +133,30 @@ export default class SessionDetail extends Component {
 
                                 <div key={message.id} className={`message ${(message.user.id == parseInt(sessionStorage.getItem("credentials"))) ? "ownMessage" : "otherUserMessage"}`}>
                                     {
+
                                         (message.user.id == parseInt(sessionStorage.getItem("credentials"))) ?
                                             (<>
+
                                                 <div>
+
                                                     <p>Me</p>
                                                 </div>
                                                 <div class="messageContentMe">
-                                                    <div>
-                                                        {message.message}
-                                                    </div>
-                                                    <EditMessageModal
-                                                        {...this.props} message={message} updateMessage={this.updateMessage}
+                                                    <div className="flex-row">
+                                                        <div className="width-80percent">
+                                                            {message.message}
+                                                        </div>
 
-                                                    />
-                                                    <a href="#"
-                                                        onClick={() => this.deleteMessage(message.id)}
-                                                        className="card-link">Delete</a>
+                                                        <div className="width-20percent flex-row pushBottom">
+                                                            <EditMessageModal
+                                                                {...this.props} message={message} updateMessage={this.updateMessage}
+                                                            />
+                                                            <IconButton className="flow-right" aria-label="Delete" onClick={() => this.deleteMessage(message.id)}
+                                                                className="card-link">
+                                                                <DeleteIcon />
+                                                            </IconButton>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </>)
@@ -182,6 +195,8 @@ export default class SessionDetail extends Component {
                                 >
                                     Submit
                             </button>
+
+
                             </form>
                         </div>
                     </section>
