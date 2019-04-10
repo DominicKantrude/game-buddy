@@ -7,142 +7,31 @@
       "id": 1
     },
     {
-      "timeSlot": "2019-04-02 03:00-04:00",
+      "timeSlot": "2019-04-11 02:00-03:00",
       "groupSize": "",
       "users": [],
-      "id": 5
-    },
-    {
-      "timeSlot": "2019-04-23 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 6
-    },
-    {
-      "timeSlot": "2019-04-01 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 13
-    },
-    {
-      "timeSlot": "2019-04-08 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 14
-    },
-    {
-      "timeSlot": "2019-04-15 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 15
-    },
-    {
-      "timeSlot": "2019-04-22 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 16
-    },
-    {
-      "timeSlot": "2019-04-29 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 17
-    },
-    {
-      "timeSlot": "2019-05-06 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 18
-    },
-    {
-      "timeSlot": "2019-04-01 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 19
-    },
-    {
-      "timeSlot": "2019-04-08 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 20
-    },
-    {
-      "timeSlot": "2019-04-15 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 21
-    },
-    {
-      "timeSlot": "2019-04-22 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 22
-    },
-    {
-      "timeSlot": "2019-04-29 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 23
-    },
-    {
-      "timeSlot": "2019-05-06 03:00-04:00",
-      "groupSize": "",
-      "users": [],
-      "id": 24
-    },
-    {
-      "timeSlot": "2019-04-01 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 25
-    },
-    {
-      "timeSlot": "2019-04-08 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 26
-    },
-    {
-      "timeSlot": "2019-04-15 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 27
-    },
-    {
-      "timeSlot": "2019-04-22 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 28
-    },
-    {
-      "timeSlot": "2019-04-29 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 29
-    },
-    {
-      "timeSlot": "2019-05-06 05:00-06:00",
-      "groupSize": "",
-      "users": [],
-      "id": 30
-    }
-  ],
-  "friends": [
-    {
-      "relatingUserId": 3,
-      "userId": 1,
-      "id": 1
-    },
-    {
-      "relatingUserId": 3,
-      "userId": 2,
       "id": 2
     },
     {
-      "relatingUserId": 1,
-      "userId": 3,
+      "timeSlot": "2019-04-25 08:00-09:00",
+      "groupSize": "",
+      "users": [],
       "id": 3
     },
+    {
+      "timeSlot": "2019-04-11 23:00-24:00",
+      "groupSize": "",
+      "users": [],
+      "id": 4
+    },
+    {
+      "timeSlot": "2019-04-11 03:00-04:00",
+      "groupSize": "",
+      "users": [],
+      "id": 5
+    }
+  ],
+  "friends": [
     {
       "relatingUserId": 1,
       "userId": 2,
@@ -155,8 +44,18 @@
     },
     {
       "relatingUserId": 2,
-      "userId": 2,
+      "userId": 3,
       "id": 6
+    },
+    {
+      "relatingUserId": 1,
+      "userId": 3,
+      "id": 7
+    },
+    {
+      "relatingUserId": 3,
+      "userId": 2,
+      "id": 8
     }
   ],
   "sessionUserRelation": [
@@ -179,118 +78,106 @@
       "id": 9
     },
     {
-      "sessionId": 14,
-      "preferenceId": 4,
-      "userId": 2,
+      "sessionId": 16,
+      "preferenceId": 2,
+      "userId": 3,
       "id": 10
     },
     {
-      "sessionId": 15,
-      "preferenceId": 4,
-      "userId": 2,
+      "sessionId": 14,
+      "preferenceId": 2,
+      "userId": 3,
       "id": 11
     },
     {
-      "sessionId": 16,
-      "preferenceId": 4,
-      "userId": 2,
+      "sessionId": 15,
+      "preferenceId": 2,
+      "userId": 3,
       "id": 12
     },
     {
       "sessionId": 17,
-      "preferenceId": 4,
-      "userId": 2,
+      "preferenceId": 2,
+      "userId": 3,
       "id": 13
     },
     {
       "sessionId": 18,
-      "preferenceId": 4,
-      "userId": 2,
-      "id": 14
-    },
-    {
-      "sessionId": 20,
       "preferenceId": 2,
       "userId": 3,
-      "id": 15
+      "id": 14
     },
     {
       "sessionId": 19,
       "preferenceId": 2,
       "userId": 3,
+      "id": 15
+    },
+    {
+      "sessionId": 20,
+      "preferenceId": 3,
+      "userId": 1,
       "id": 16
     },
     {
       "sessionId": 21,
-      "preferenceId": 2,
-      "userId": 3,
+      "preferenceId": 4,
+      "userId": 1,
       "id": 17
+    },
+    {
+      "sessionId": 6,
+      "preferenceId": 3,
+      "userId": 2,
+      "id": 18
     },
     {
       "sessionId": 22,
       "preferenceId": 2,
-      "userId": 3,
-      "id": 18
+      "userId": 1,
+      "id": 19
     },
     {
       "sessionId": 23,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 19
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 20
     },
     {
       "sessionId": 24,
       "preferenceId": 2,
-      "userId": 3,
-      "id": 20
+      "userId": 1,
+      "id": 21
     },
     {
       "sessionId": 25,
       "preferenceId": 2,
-      "userId": 2,
-      "id": 27
+      "userId": 1,
+      "id": 22
     },
     {
-      "sessionId": 26,
+      "sessionId": 2,
       "preferenceId": 2,
-      "userId": 2,
-      "id": 28
+      "userId": 1,
+      "id": 23
     },
     {
-      "sessionId": 27,
-      "preferenceId": 2,
-      "userId": 2,
-      "id": 29
+      "sessionId": 3,
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 24
     },
     {
-      "sessionId": 28,
-      "preferenceId": 2,
-      "userId": 2,
-      "id": 30
+      "sessionId": 4,
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 25
     },
     {
-      "sessionId": 29,
+      "sessionId": 5,
       "preferenceId": 2,
-      "userId": 2,
-      "id": 31
-    },
-    {
-      "sessionId": 30,
-      "preferenceId": 2,
-      "userId": 2,
-      "id": 32
-    },
-    {
-      "sessionId": 30,
-      "preferenceId": 2,
-      "userId": 2,
-      "id": 33
-    },
-    {
-      "sessionId": 29,
-      "preferenceId": 2,
-      "userId": 2,
-      "id": 34
+      "userId": 1,
+      "id": 26
     }
   ],
   "messages": [
@@ -303,39 +190,11 @@
   ],
   "schedules": [
     {
+      "id": 2,
+      "dayIncrementor": "3",
+      "time": "17:00-18:00",
       "preference": 2,
-      "dayIncrementor": 1,
-      "time": "03:00-04:00",
-      "userId": 3,
-      "id": 4
-    },
-    {
-      "preference": 4,
-      "dayIncrementor": 1,
-      "time": "08:00-09:00",
-      "userId": 2,
-      "id": 6
-    },
-    {
-      "preference": 2,
-      "dayIncrementor": 1,
-      "time": "03:00-04:00",
-      "userId": 3,
-      "id": 7
-    },
-    {
-      "preference": 4,
-      "dayIncrementor": 1,
-      "time": "03:00-04:00",
-      "userId": 3,
-      "id": 9
-    },
-    {
-      "id": 10,
-      "dayIncrementor": 1,
-      "time": "05:00-06:00",
-      "preference": 2,
-      "userId": 2
+      "userId": 3
     }
   ],
   "preferences": [
