@@ -10,7 +10,7 @@ class EditScheduleModal extends React.Component {
         dayIncrementor: this.props.schedule.dayIncrementor,
         time: this.props.schedule.time,
         userId: parseInt(sessionStorage.getItem("credentials")),
-        preference: this.props.schedule.preference,
+        preference: parseInt(this.props.schedule.preference),
         id: this.props.schedule.id
     }
 
@@ -33,7 +33,7 @@ class EditScheduleModal extends React.Component {
             id: this.state.id,
             dayIncrementor: this.state.dayIncrementor,
             time: this.state.time,
-            preference: this.state.preference,
+            preference: parseInt(this.state.preference),
             userId: this.state.userId
         };
 
@@ -98,6 +98,7 @@ class EditScheduleModal extends React.Component {
 
                                 <option key="scheduleTime--00:00-01:00" id="00:00-01:00" value="00:00-01:00">00:00-01:00</option>
                                 <option key="scheduleTime--01:00-02:00" id="01:00-02:00" value="01:00-02:00">01:00-02:00</option>
+                                <option key="scheduleTime--02:00-03:00" id="02:00-03:00" value="02:00-03:00">02:00-03:00</option>
                                 <option key="scheduleTime--03:00-04:00" id="03:00-04:00" value="03:00-04:00">03:00-04:00</option>
                                 <option key="scheduleTime--05:00-06:00" id="05:00-06:00" value="05:00-06:00">05:00-06:00</option>
                                 <option key="scheduleTime--06:00-07:00" id="06:00-07:00" value="06:00-07:00">06:00-07:00</option>

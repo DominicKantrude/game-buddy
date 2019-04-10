@@ -21,6 +21,19 @@ class ApplicationViews extends Component {
         sortBy: "groupSize"
     }
 
+    //new thing. SO now we need to try to connect sessions. So when we grab a session we are going
+    //to want to do a search at fro a session with the next value in time. Once we have that session we need
+    //check to see if the users still match. If not all users match the session we had in the last step will be added as a session
+    //to our state.  will then keep that session and modify it as needed. For instance if we check the next date see it
+    //exists but with only one other user instead of say like two from before. we change thats sessions
+    //to a new session time using all added hours. We can remove the users that are not attached anymore and
+    //we then repeat the process till we dont have a connected session.
+
+
+
+
+
+
     getLoadInfo = () => {
         const newState = {}
 
@@ -105,7 +118,7 @@ class ApplicationViews extends Component {
                                 //of  the game theu want to play
                                 if (userSession.id === sessionRelation.sessionId && friendIds.includes(sessionRelation.user.id)) {
                                     groupSize++;
-                                    userSession.users.push({user: sessionRelation.user.username, preference:  newState.preferences[sessionRelation.preferenceId - 1].preference})
+                                    userSession.users.push({ user: sessionRelation.user.username, preference: newState.preferences[sessionRelation.preferenceId - 1].preference })
                                 }
                             });
                             userSession.groupSize = groupSize;
@@ -117,17 +130,38 @@ class ApplicationViews extends Component {
 
                             newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
                         }
+
+                        this.combineLikeTimeslots(newState.usersSessions)
+
                         //push new state which now shows all sessions for that user with all users that are friends that are connected to thier sessions
                         this.setState(newState)
                     })
             })
     }
 
+    combineLikeTimeslots = usersSessions => {
+        let futureTimeslots = [];
+        usersSessions.forEach(session => {
+            //if a session contains the timedate after we add an hour store the new time into a new userSessions array.
+            console.log(session.timeSlot)
+            futureTimeslots.push(this.addHour(session));
+
+            if (futureTimeslots.includes(session.timeSlot)) {
+                console.log("we need to combine possibly")
+            }
+        })
+        console.log(futureTimeslots)
+    }
+
+
+
+
+
     toggleSorting = sortingType => {
         const newState = {}
         newState.sortBy = sortingType
         this.setState(newState)
-        console.log(this.state)
+
     }
 
     deleteFriend = id => {
@@ -315,7 +349,7 @@ class ApplicationViews extends Component {
                             this.addSession(newSession, schedule.preference)
                         });
                     });
-                })
+                }).then(() => this.getLoadInfo())
         }
     }
 
@@ -352,6 +386,34 @@ class ApplicationViews extends Component {
         return scheduleSessionsObject
     }
 
+
+    formatTimeSlotToRealDate(timeSlot) {
+        let splitTimeBySpace = timeSlot.split(' ')
+        let yearMonthDay = splitTimeBySpace[0].split("-")
+
+        var sessionDateConverted = new Date(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2], splitTimeBySpace[1].split(":")[0]);
+
+        return sessionDateConverted
+    }
+
+    formatRealDateToTimeSlot(date) {
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let hours = date.getHours();
+
+        let newTimeslot = `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day} ${hours < 10 ? `0${hours}:00` : `${hours}:00`}-${hours + 1 < 10 ? `0${hours + 1}:00` : `${hours + 1}:00`}`
+        return newTimeslot
+
+    }
+
+    addHour = session => {
+        let sessionDateConverted = this.formatTimeSlotToRealDate(session.timeSlot)
+        let dateAfterHourAdded = new Date(sessionDateConverted.setHours(sessionDateConverted.getHours() + 1));
+
+        return this.formatRealDateToTimeSlot(dateAfterHourAdded)
+    }
+
     minusDays(date, days) {
         var result = new Date(date);
         result.setDate(result.getDate() - days);
@@ -385,7 +447,7 @@ class ApplicationViews extends Component {
                 .then(parsedSchedules => {
                     newState.schedules = parsedSchedules;
                     this.setState(newState)
-                })
+                }).then(() => this.getLoadInfo())
         })
     }
 
