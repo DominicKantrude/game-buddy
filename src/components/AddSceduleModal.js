@@ -38,7 +38,6 @@ class AddScheduleModal extends React.Component {
 
     }
 
-
     render() {
 
         return (
@@ -98,6 +97,7 @@ class AddScheduleModal extends React.Component {
                                 <option key="scheduleTime--06:00-07:00" id="06:00-07:00" value="06:00-07:00">06:00-07:00</option>
                                 <option key="scheduleTime--07:00-08:00" id="07:00-08:00" value="07:00-08:00">07:00-08:00</option>
                                 <option key="scheduleTime--08:00-09:00" id="08:00-09:00" value="08:00-09:00">08:00-09:00</option>
+                                <option key="scheduleTime--09:00-10:00" id="09:00-10:00" value="09:00-10:00">09:00-10:00</option>
                                 <option key="scheduleTime--10:00-11:00" id="10:00-11:00" value="10:00-11:00">10:00-11:00</option>
                                 <option key="scheduleTime--11:00-12:00" id="11:00-12:00" value="11:00-12:00">11:00-12:00</option>
                                 <option key="scheduleTime--12:00-13:00" id="12:00-13:00" value="12:00-13:00">12:00-13:00</option>

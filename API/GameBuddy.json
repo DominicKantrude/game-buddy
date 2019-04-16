@@ -7,28 +7,52 @@
       "id": 1
     },
     {
-      "timeSlot": "2019-04-11 02:00-03:00",
+      "timeSlot": "2019-04-13 06:00-07:00",
       "groupSize": "",
       "users": [],
       "id": 2
     },
     {
-      "timeSlot": "2019-04-25 08:00-09:00",
-      "groupSize": "",
-      "users": [],
-      "id": 3
-    },
-    {
-      "timeSlot": "2019-04-11 23:00-24:00",
+      "timeSlot": "2019-04-19 06:00-07:00",
       "groupSize": "",
       "users": [],
       "id": 4
     },
     {
-      "timeSlot": "2019-04-11 03:00-04:00",
+      "timeSlot": "2019-04-27 06:00-07:00",
       "groupSize": "",
       "users": [],
       "id": 5
+    },
+    {
+      "timeSlot": "2019-04-20 16:00-17:00",
+      "groupSize": "",
+      "users": [],
+      "id": 6
+    },
+    {
+      "timeSlot": "2019-04-19 05:00-06:00",
+      "groupSize": "",
+      "users": [],
+      "id": 7
+    },
+    {
+      "timeSlot": "2019-04-19 07:00-08:00",
+      "groupSize": "",
+      "users": [],
+      "id": 8
+    },
+    {
+      "timeSlot": "2019-04-19 08:00-09:00",
+      "groupSize": "",
+      "users": [],
+      "id": 9
+    },
+    {
+      "timeSlot": "2019-04-19 09:00-10:00",
+      "groupSize": "",
+      "users": [],
+      "id": 10
     }
   ],
   "friends": [
@@ -66,118 +90,82 @@
       "id": 1
     },
     {
-      "sessionId": 6,
-      "preferenceId": 3,
-      "userId": 1,
-      "id": 2
-    },
-    {
-      "sessionId": 13,
-      "preferenceId": 4,
-      "userId": 2,
-      "id": 9
-    },
-    {
-      "sessionId": 16,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 10
-    },
-    {
-      "sessionId": 14,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 11
-    },
-    {
-      "sessionId": 15,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 12
-    },
-    {
-      "sessionId": 17,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 13
-    },
-    {
-      "sessionId": 18,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 14
-    },
-    {
-      "sessionId": 19,
-      "preferenceId": 2,
-      "userId": 3,
-      "id": 15
-    },
-    {
-      "sessionId": 20,
-      "preferenceId": 3,
-      "userId": 1,
-      "id": 16
-    },
-    {
-      "sessionId": 21,
-      "preferenceId": 4,
-      "userId": 1,
-      "id": 17
-    },
-    {
-      "sessionId": 6,
-      "preferenceId": 3,
-      "userId": 2,
-      "id": 18
-    },
-    {
-      "sessionId": 22,
-      "preferenceId": 2,
-      "userId": 1,
-      "id": 19
-    },
-    {
-      "sessionId": 23,
-      "preferenceId": 3,
-      "userId": 1,
-      "id": 20
-    },
-    {
-      "sessionId": 24,
-      "preferenceId": 2,
-      "userId": 1,
-      "id": 21
-    },
-    {
-      "sessionId": 25,
-      "preferenceId": 2,
-      "userId": 1,
-      "id": 22
-    },
-    {
       "sessionId": 2,
-      "preferenceId": 2,
-      "userId": 1,
-      "id": 23
-    },
-    {
-      "sessionId": 3,
-      "preferenceId": 3,
-      "userId": 1,
-      "id": 24
+      "preferenceId": 4,
+      "userId": 2,
+      "id": 2
     },
     {
       "sessionId": 4,
       "preferenceId": 3,
       "userId": 1,
-      "id": 25
+      "id": 4
     },
     {
       "sessionId": 5,
+      "preferenceId": 4,
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "sessionId": 6,
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "sessionId": 4,
+      "preferenceId": 2,
+      "userId": 2,
+      "id": 7
+    },
+    {
+      "sessionId": 7,
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 8
+    },
+    {
+      "sessionId": 7,
+      "preferenceId": 3,
+      "userId": 2,
+      "id": 9
+    },
+    {
+      "sessionId": 7,
+      "preferenceId": 2,
+      "userId": 3,
+      "id": 10
+    },
+    {
+      "sessionId": 4,
+      "preferenceId": 4,
+      "userId": 3,
+      "id": 11
+    },
+    {
+      "sessionId": 8,
+      "preferenceId": 3,
+      "userId": 1,
+      "id": 12
+    },
+    {
+      "sessionId": 8,
+      "preferenceId": 4,
+      "userId": 2,
+      "id": 13
+    },
+    {
+      "sessionId": 9,
+      "preferenceId": 4,
+      "userId": 1,
+      "id": 14
+    },
+    {
+      "sessionId": 10,
       "preferenceId": 2,
       "userId": 1,
-      "id": 26
+      "id": 15
     }
   ],
   "messages": [
@@ -188,15 +176,7 @@
       "id": 1
     }
   ],
-  "schedules": [
-    {
-      "id": 2,
-      "dayIncrementor": "3",
-      "time": "17:00-18:00",
-      "preference": 2,
-      "userId": 3
-    }
-  ],
+  "schedules": [],
   "preferences": [
     {
       "id": 1,

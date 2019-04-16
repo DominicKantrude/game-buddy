@@ -93,6 +93,7 @@ class AddSessionModal extends React.Component {
                             <option key="06:00-07:00" id="06:00-07:00" value="06:00-07:00">06:00-07:00</option>
                             <option key="07:00-08:00" id="07:00-08:00" value="07:00-08:00">07:00-08:00</option>
                             <option key="08:00-09:00" id="08:00-09:00" value="08:00-09:00">08:00-09:00</option>
+                            <option key="09:00-10:00" id="09:00-10:00" value="09:00-10:00">09:00-10:00</option>
                             <option key="10:00-11:00" id="10:00-11:00" value="10:00-11:00">10:00-11:00</option>
                             <option key="11:00-12:00" id="11:00-12:00" value="11:00-12:00">11:00-12:00</option>
                             <option key="12:00-13:00" id="12:00-13:00" value="12:00-13:00">12:00-13:00</option>
