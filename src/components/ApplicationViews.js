@@ -8,6 +8,7 @@ import FriendsList from "./FriendsList"
 
 import FriendsManager from "../Modules/FriendsManager"
 import ScheduleList from "./ScheduleList"
+import { debug } from 'util';
 
 
 class ApplicationViews extends Component {
@@ -21,20 +22,8 @@ class ApplicationViews extends Component {
         sortBy: "groupSize"
     }
 
-    //new thing. SO now we need to try to connect sessions. So when we grab a session we are going
-    //to want to do a search at fro a session with the next value in time. Once we have that session we need
-    //check to see if the users still match. If not all users match the session we had in the last step will be added as a session
-    //to our state.  will then keep that session and modify it as needed. For instance if we check the next date see it
-    //exists but with only one other user instead of say like two from before. we change thats sessions
-    //to a new session time using all added hours. We can remove the users that are not attached anymore and
-    //we then repeat the process till we dont have a connected session.
-
-
-
-
-
-
     getLoadInfo = () => {
+
         const newState = {}
 
         fetch(`http://localhost:5002/preferences`)
@@ -131,7 +120,7 @@ class ApplicationViews extends Component {
                             newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
                         }
 
-                        this.combineLikeTimeslots(newState.usersSessions)
+                        this.combineLikeTimeslots(newState)
 
                         //push new state which now shows all sessions for that user with all users that are friends that are connected to thier sessions
                         this.setState(newState)
@@ -139,20 +128,86 @@ class ApplicationViews extends Component {
             })
     }
 
-    combineLikeTimeslots = usersSessions => {
+
+    combineLikeTimeslots = (newState) => {
         let futureTimeslots = [];
-        usersSessions.forEach(session => {
-            //if a session contains the timedate after we add an hour store the new time into a new userSessions array.
-            console.log(session.timeSlot)
-            futureTimeslots.push(this.addHour(session));
 
-            if (futureTimeslots.includes(session.timeSlot)) {
-                console.log("we need to combine possibly")
+
+        newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
+
+        let currentMatcher = {}
+        let tailSession = {}
+
+
+
+        //going to have to make this a foreach so i can splice out one of the sessions
+
+        for (let i = 0; i < newState.usersSessions.length; i++) {
+
+            let session = newState.usersSessions[i];
+
+            if (typeof currentMatcher != 'undefined') {
+                if (session.timeSlot === currentMatcher.timeSlot && this.isUsersEquavalent(session.users, tailSession.users)) {
+                    console.log("match")
+
+                    let array = tailSession.timeSlot.split("-")
+                    array[3] = currentMatcher.timeSlot.split("-")[3]
+                    session.timeSlot = array.join("-")
+                    currentMatcher = Object.assign({}, session);
+
+                    //delete the previous session from the list of sessions since our new session contains both hours
+                    newState.usersSessions.splice(i-1, 1)
+                } else {
+                    currentMatcher = Object.assign({}, session);
+                }
             }
-        })
-        console.log(futureTimeslots)
-    }
 
+            currentMatcher = this.addHour(currentMatcher)
+            tailSession = Object.assign({}, session);
+
+
+        }
+
+
+
+
+        // newState.usersSessions.forEach(session => {
+
+        //     //going to need to make a check for if the users are the same. Will ethier need to make a custom objects check or loop through a bunch of nonsense
+        //     if (typeof currentMatcher != 'undefined') {
+        //         if (session.timeSlot === currentMatcher.timeSlot && this.isUsersEquavalent(session.users, tailSession.users)) {
+        //             console.log("match")
+
+        //             let array = tailSession.timeSlot.split("-")
+        //             array[3] = currentMatcher.timeSlot.split("-")[3]
+        //             session.timeSlot = array.join("-")
+        //             currentMatcher = Object.assign({}, session);
+        //             session = {};
+        //         } else {
+        //             currentMatcher = Object.assign({}, session);
+        //         }
+        //     }
+
+        //     currentMatcher = this.addHour(currentMatcher)
+        //     tailSession = Object.assign({}, session);
+        // })
+
+
+
+        // do the add to the date. store the previous date as a tail and store the added date somewhere.
+        //on the next run through check if the current date matches the current matcher which includes the users. have to check if the users match. if yes combine the the tail begin time to
+        //the new end time as well as store that sessios as the new session we start with. so the tail reference?and delete the current session from the state. either wasy update the current matcher.
+
+
+
+
+        // usersSessions.forEach(session => {
+        //     if (futureTimeslots.includes(session.timeSlot)) {
+        //         console.log("we need to combine possibly")
+
+        //     }
+        // })
+    }
 
 
 
@@ -328,7 +383,7 @@ class ApplicationViews extends Component {
 
     //todo going to have to figure out how to break this promise chain early if we dont get ny results. currently it just decides to
     //grab all sessions if you cant find any .
-    addScheduledSessionsToDatabase() {
+    addScheduledSessionsToDatabase = () => {
         if (this.state.initialLoad === false) {
             fetch(`http://localhost:5002/schedules/?userId=${parseInt(sessionStorage.getItem("credentials"))}`)
                 .then(r => r.json())
@@ -387,7 +442,7 @@ class ApplicationViews extends Component {
     }
 
 
-    formatTimeSlotToRealDate(timeSlot) {
+    formatTimeSlotToRealDate = (timeSlot) => {
         let splitTimeBySpace = timeSlot.split(' ')
         let yearMonthDay = splitTimeBySpace[0].split("-")
 
@@ -396,7 +451,7 @@ class ApplicationViews extends Component {
         return sessionDateConverted
     }
 
-    formatRealDateToTimeSlot(date) {
+    formatRealDateToTimeSlot = (date) => {
         let year = date.getFullYear();
         let month = date.getMonth();
         let day = date.getDate();
@@ -410,26 +465,52 @@ class ApplicationViews extends Component {
     addHour = session => {
         let sessionDateConverted = this.formatTimeSlotToRealDate(session.timeSlot)
         let dateAfterHourAdded = new Date(sessionDateConverted.setHours(sessionDateConverted.getHours() + 1));
-
-        return this.formatRealDateToTimeSlot(dateAfterHourAdded)
+        session.timeSlot = this.formatRealDateToTimeSlot(dateAfterHourAdded)
+        return session
     }
 
-    minusDays(date, days) {
+    minusDays = (date, days) => {
         var result = new Date(date);
         result.setDate(result.getDate() - days);
         return result;
     }
 
-    addDays(date, days) {
+    addDays = (date, days) => {
         var result = new Date(date);
         result.setDate(result.getDate() + days);
         return result;
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
+
         this.getLoadInfo()
         this.addScheduledSessionsToDatabase()
 
+    }
+
+    isUsersEquavalent = (userArrayA, userArrayB) => {
+
+        if (typeof userArrayA == 'undefined' && typeof userArrayB == 'undefined') {
+            return true;
+        } else if ((typeof userArrayA == 'undefined' && typeof userArrayB != 'undefined') || ((typeof userArrayA != 'undefined' && typeof userArrayB == 'undefined'))) {
+            return false;
+        }
+
+        if (userArrayA.length != userArrayB.length) {
+            return false;
+        }
+
+        if (userArrayA.length === 0 && userArrayB.length === 0) {
+            return true;
+        }
+
+        for (let index = 0; index < userArrayA.length; index++) {
+
+            if (userArrayA[index].user != userArrayB[index].user) {
+                return false
+            }
+        }
+        return true;
     }
 
     editSchedule = (editedSchedule, oldSchedule) => {
@@ -450,8 +531,6 @@ class ApplicationViews extends Component {
                 }).then(() => this.getLoadInfo())
         })
     }
-
-
 
     render() {
 
