@@ -22,6 +22,17 @@ class ApplicationViews extends Component {
         sortBy: "groupSize"
     }
 
+
+
+
+
+
+    //need to added new drop downs to allow multiple hours to be selected. New add session will break down the
+    //times into chunks so multiple hours sessions an be added. These drop downs will also have to check to make
+    //sure the second dropdown is at least an hour later than the first dropdown
+
+
+
     getLoadInfo = () => {
 
         const newState = {}
@@ -113,14 +124,14 @@ class ApplicationViews extends Component {
                             userSession.groupSize = groupSize;
                         });
 
-                        if (this.state.sortBy === "groupSize") {
-                            newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return userSessionB.groupSize - userSessionA.groupSize });
-                        } else {
+                        // if (this.state.sortBy === "groupSize") {
+                        //     newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return userSessionB.groupSize - userSessionA.groupSize });
+                        // } else {
 
-                            newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
-                        }
+                        //     newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
+                        // }
 
-                        this.combineLikeTimeslots(newState)
+                        this.combineLikeTimeslots2(newState)
 
                         //push new state which now shows all sessions for that user with all users that are friends that are connected to thier sessions
                         this.setState(newState)
@@ -129,88 +140,78 @@ class ApplicationViews extends Component {
     }
 
 
-    combineLikeTimeslots = (newState) => {
-        let futureTimeslots = [];
+    combineLikeTimeslots2 = (newState) => {
+        newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot.split("-").splice(0, 3).join("-")) - new Date(userSessionB.timeSlot.split("-").splice(0, 3).join("-")) });
 
 
-        newState.usersSessions = newState.usersSessions.sort(function (userSessionA, userSessionB) { return new Date(userSessionA.timeSlot) - new Date(userSessionB.timeSlot) });
-
+        //grab first session to start the matching
         let currentMatcher = {}
         let tailSession = {}
+        let startTimeslot = newState.usersSessions[0].timeSlot;
 
 
-
-        //going to have to make this a foreach so i can splice out one of the sessions
-
+        //got through each sessions from the sorted sessions
         for (let i = 0; i < newState.usersSessions.length; i++) {
 
-            let session = newState.usersSessions[i];
+            //our current session
+            let session = Object.assign({}, newState.usersSessions[i]);
 
-            if (typeof currentMatcher != 'undefined') {
+            //check if it is our first run through
+            if ( Object.keys(currentMatcher).length != 0 && currentMatcher.constructor === Object) {
+
+                //check if our matcher(the sessions with an added hour) has the same date as our session we are checking. Also check if the users are the same
+                //if so proceed
+
                 if (session.timeSlot === currentMatcher.timeSlot && this.isUsersEquavalent(session.users, tailSession.users)) {
-                    console.log("match")
 
-                    let array = tailSession.timeSlot.split("-")
-                    array[3] = currentMatcher.timeSlot.split("-")[3]
-                    session.timeSlot = array.join("-")
-                    currentMatcher = Object.assign({}, session);
+                    //we need to cut this session from the sessions in state because that time block does exist. Sinc we delete from the
+                    //array we need to set the index back one because the array has shifted.
+if(i+1 != newState.usersSessions.length){
 
-                    //delete the previous session from the list of sessions since our new session contains both hours
-                    newState.usersSessions.splice(i-1, 1)
-                } else {
+    newState.usersSessions.splice(i , 1)
+}
+
+
+                    i--
+
+                    //if they match we need to add another hour to try to match to again
+                    currentMatcher = this.addHour(currentMatcher)
+                    tailSession = Object.assign({}, session);
+                }
+                else {
+                    //store our combined timeslots on the current sessions timeslot
+
+                     //*****reconstruct a correct time */
+                     newState.usersSessions[i].timeSlot = startTimeslot.split("-").splice(0, 3).join("-") + "-" + tailSession.timeSlot.split("-")[3]
+                    //started a new timeslot holder
+
+
+                    startTimeslot = session.timeSlot;
                     currentMatcher = Object.assign({}, session);
+                    console.log({session})
+                    console.log({currentMatcher})
+                    currentMatcher = this.addHour(currentMatcher)
+                    console.log({currentMatcher})
+                    tailSession = Object.assign({}, session);
+                    console.log({startTimeslot})
+
+                    console.log({tailSession})
+
+                    //possibly change what the new matchers are
                 }
             }
-
-            currentMatcher = this.addHour(currentMatcher)
-            tailSession = Object.assign({}, session);
-
-
+            //if we have not ran through yet establish our matcher and add an hour and our tail
+            else {
+                currentMatcher = Object.assign({}, session);
+                currentMatcher = this.addHour(currentMatcher)
+                tailSession = Object.assign({}, session);
+                newState.usersSessions.splice(i , 1)
+                    i--
+            }
         }
+        console.log(newState)
 
-
-
-
-        // newState.usersSessions.forEach(session => {
-
-        //     //going to need to make a check for if the users are the same. Will ethier need to make a custom objects check or loop through a bunch of nonsense
-        //     if (typeof currentMatcher != 'undefined') {
-        //         if (session.timeSlot === currentMatcher.timeSlot && this.isUsersEquavalent(session.users, tailSession.users)) {
-        //             console.log("match")
-
-        //             let array = tailSession.timeSlot.split("-")
-        //             array[3] = currentMatcher.timeSlot.split("-")[3]
-        //             session.timeSlot = array.join("-")
-        //             currentMatcher = Object.assign({}, session);
-        //             session = {};
-        //         } else {
-        //             currentMatcher = Object.assign({}, session);
-        //         }
-        //     }
-
-        //     currentMatcher = this.addHour(currentMatcher)
-        //     tailSession = Object.assign({}, session);
-        // })
-
-
-
-        // do the add to the date. store the previous date as a tail and store the added date somewhere.
-        //on the next run through check if the current date matches the current matcher which includes the users. have to check if the users match. if yes combine the the tail begin time to
-        //the new end time as well as store that sessios as the new session we start with. so the tail reference?and delete the current session from the state. either wasy update the current matcher.
-
-
-
-
-        // usersSessions.forEach(session => {
-        //     if (futureTimeslots.includes(session.timeSlot)) {
-        //         console.log("we need to combine possibly")
-
-        //     }
-        // })
     }
-
-
-
 
     toggleSorting = sortingType => {
         const newState = {}
@@ -326,7 +327,6 @@ class ApplicationViews extends Component {
         return fetch(`http://localhost:5002/sessions?timeSlot=${session.timeSlot}`)
             .then(r => r.json())
             .then(sessionThatMayExist => {
-                console.log(preference)
                 //if the return from the fetch is not empty that session exists which means all we have to do is make a link to the session
                 if (Object.keys(sessionThatMayExist).length !== 0) {
                     let newSessionRelation = {
